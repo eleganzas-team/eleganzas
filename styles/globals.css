@@ -1,0 +1,745 @@
+@import "tailwindcss";
+/* @import "tw-animate-css"; */
+@import "shadcn/tailwind.css";
+/* @import "tw-animate-css"; */
+
+@custom-variant dark (&:is(.dark *));
+
+/* ═══════════════════════════════════════════════════════════
+   @theme inline — maps CSS vars → Tailwind utilities
+   Usage: bg-sidebar, text-nav-text, text-nav-text-active …
+═══════════════════════════════════════════════════════════ */
+@theme inline {
+  /* ── Core surface ── */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  /* ── Card ── */
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+
+  /* ── Popover ── */
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+
+  /* ── Brand ── */
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+
+  /* ── Surface states ── */
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+
+  /* ── Feedback ── */
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+
+  /* ── Form chrome ── */
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* ── Charts ── */
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+
+  /* ── Sidebar shell ── */
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  /* ── Sidebar brand / logo ── */
+  --color-sidebar-brand-bg: var(--sidebar-brand-bg);
+  --color-sidebar-brand-icon: var(--sidebar-brand-icon);
+  --color-sidebar-brand-text: var(--sidebar-brand-text);
+  --color-sidebar-brand-subtext: var(--sidebar-brand-subtext);
+
+  /* ── Nav item states ── */
+  --color-nav-text: var(--nav-text);
+  --color-nav-text-hover: var(--nav-text-hover);
+  --color-nav-text-active: var(--nav-text-active);
+  --color-nav-bg-hover: var(--nav-bg-hover);
+  --color-nav-bg-active: var(--nav-bg-active);
+
+  /* ── Nav icon states ── */
+  --color-nav-icon: var(--nav-icon);
+  --color-nav-icon-hover: var(--nav-icon-hover);
+  --color-nav-icon-active: var(--nav-icon-active);
+
+  /* ── Nav children ── */
+  --color-nav-child-text: var(--nav-child-text);
+  --color-nav-child-text-active: var(--nav-child-text-active);
+  --color-nav-child-bg-hover: var(--nav-child-bg-hover);
+  --color-nav-child-bg-active: var(--nav-child-bg-active);
+  --color-nav-child-dot: var(--nav-child-dot);
+  --color-nav-child-dot-active: var(--nav-child-dot-active);
+  --color-nav-child-indicator: var(--nav-child-indicator);
+  --color-nav-child-tree-line: var(--nav-child-tree-line);
+
+  /* ── Chevron ── */
+  --color-nav-chevron: var(--nav-chevron);
+  --color-nav-chevron-open: var(--nav-chevron-open);
+  --color-nav-chevron-active: var(--nav-chevron-active);
+
+  /* ── Section label ── */
+  --color-nav-section-label: var(--nav-section-label);
+
+  /* ── Sidebar footer ── */
+  --color-sidebar-footer-border: var(--sidebar-footer-border);
+  --color-sidebar-footer-text: var(--sidebar-footer-text);
+  --color-sidebar-footer-subtext: var(--sidebar-footer-subtext);
+  --color-sidebar-footer-icon: var(--sidebar-footer-icon);
+
+  /* ── Topbar ── */
+  --color-topbar: var(--topbar);
+  --color-topbar-border: var(--topbar-border);
+  --color-topbar-icon: var(--topbar-icon);
+  --color-topbar-icon-hover: var(--topbar-icon-hover);
+  --color-topbar-btn-bg-hover: var(--topbar-btn-bg-hover);
+  --color-topbar-btn-border: var(--topbar-btn-border);
+  --color-topbar-btn-border-hover: var(--topbar-btn-border-hover);
+  --color-topbar-divider: var(--topbar-divider);
+  --color-topbar-username: var(--topbar-username);
+  --color-topbar-track: var(--topbar-track);
+
+  /* ── Topbar avatar ── */
+  --color-topbar-avatar-bg: var(--topbar-avatar-bg);
+  --color-topbar-avatar-text: var(--topbar-avatar-text);
+  --color-topbar-avatar-ring: var(--topbar-avatar-ring);
+
+  /* ── Topbar role badge ── */
+  --color-topbar-badge-text: var(--topbar-badge-text);
+  --color-topbar-badge-bg: var(--topbar-badge-bg);
+  --color-topbar-badge-border: var(--topbar-badge-border);
+
+  /* ── Topbar dropdown ── */
+  --color-topbar-dd-bg: var(--topbar-dd-bg);
+  --color-topbar-dd-border: var(--topbar-dd-border);
+  --color-topbar-dd-item-text: var(--topbar-dd-item-text);
+  --color-topbar-dd-item-text-hover: var(--topbar-dd-item-text-hover);
+  --color-topbar-dd-item-bg-hover: var(--topbar-dd-item-bg-hover);
+  --color-topbar-dd-divider: var(--topbar-dd-divider);
+  --color-topbar-dd-danger-text: var(--topbar-dd-danger-text);
+  --color-topbar-dd-danger-bg-hover: var(--topbar-dd-danger-bg-hover);
+  --color-topbar-dd-icon: var(--topbar-dd-icon);
+
+  /* ── Dashboard ── */
+  --color-dash-heading: var(--dash-heading);
+  --color-dash-subtext: var(--dash-subtext);
+  --color-dash-greeting-accent: var(--dash-greeting-accent);
+
+  /* ── Stat card ── */
+  --color-stat-card-bg: var(--stat-card-bg);
+  --color-stat-card-border: var(--stat-card-border);
+  --color-stat-card-label: var(--stat-card-label);
+  --color-stat-card-value: var(--stat-card-value);
+  --color-stat-card-icon-bg: var(--stat-card-icon-bg);
+  --color-stat-card-icon-color: var(--stat-card-icon-color);
+  --color-stat-card-trend-up: var(--stat-card-trend-up);
+  --color-stat-card-trend-down: var(--stat-card-trend-down);
+
+  /* ── Quick action card ── */
+  --color-qa-card-bg: var(--qa-card-bg);
+  --color-qa-card-border: var(--qa-card-border);
+  --color-qa-item-bg: var(--qa-item-bg);
+  --color-qa-item-bg-hover: var(--qa-item-bg-hover);
+  --color-qa-item-text: var(--qa-item-text);
+  --color-qa-item-text-hover: var(--qa-item-text-hover);
+  --color-qa-item-icon: var(--qa-item-icon);
+
+  /* ── Status card ── */
+  --color-status-ok-text: var(--status-ok-text);
+  --color-status-ok-dot: var(--status-ok-dot);
+  --color-status-warn-text: var(--status-warn-text);
+  --color-status-warn-dot: var(--status-warn-dot);
+  --color-status-error-text: var(--status-error-text);
+  --color-status-error-dot: var(--status-error-dot);
+
+  /* ── Support card ── */
+  --color-support-btn-bg: var(--support-btn-bg);
+  --color-support-btn-bg-hover: var(--support-btn-bg-hover);
+  --color-support-btn-text: var(--support-btn-text);
+
+  /* ── Page header ── */
+  --color-page-heading: var(--page-heading);
+  --color-page-subtext: var(--page-subtext);
+
+  /* ── User avatar ── */
+  --color-user-avatar-bg: var(--user-avatar-bg);
+  --color-user-avatar-text: var(--user-avatar-text);
+
+  /* ── Pending badge ── */
+  --color-pending-badge-text: var(--pending-badge-text);
+  --color-pending-badge-bg: var(--pending-badge-bg);
+  --color-pending-badge-border: var(--pending-badge-border);
+
+  /* ── User card ── */
+  --color-user-card-bg: var(--user-card-bg);
+  --color-user-card-border: var(--user-card-border);
+  --color-user-card-border-hover: var(--user-card-border-hover);
+  --color-user-card-meta: var(--user-card-meta);
+
+  /* ── Approve button ── */
+  --color-btn-approve-bg: var(--btn-approve-bg);
+  --color-btn-approve-bg-hover: var(--btn-approve-bg-hover);
+  --color-btn-approve-text: var(--btn-approve-text);
+  --color-btn-approve-border: var(--btn-approve-border);
+
+  /* ── Reject button ── */
+  --color-btn-reject-bg: var(--btn-reject-bg);
+  --color-btn-reject-bg-hover: var(--btn-reject-bg-hover);
+  --color-btn-reject-text: var(--btn-reject-text);
+  --color-btn-reject-border: var(--btn-reject-border);
+
+  /* ── Outline / ghost button ── */
+  --color-btn-outline-bg: var(--btn-outline-bg);
+  --color-btn-outline-bg-hover: var(--btn-outline-bg-hover);
+  --color-btn-outline-text: var(--btn-outline-text);
+  --color-btn-outline-border: var(--btn-outline-border);
+
+  /* ── Empty state ── */
+  --color-empty-icon: var(--empty-icon);
+  --color-empty-text: var(--empty-text);
+
+  /* ── Radius scale ── */
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+
+  /* ── Typography ── */
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-geist-mono, "Geist Mono", ui-monospace, monospace);
+  --font-serif: var(
+    --font-cormorant,
+    "Cormorant Garamond",
+    "Cormorant",
+    Georgia,
+    serif
+  );
+  --font-heading: var(--font-sans);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   LIGHT  —  warm parchment × deep ink × refined gold
+═══════════════════════════════════════════════════════════ */
+:root {
+  --radius: 0.625rem;
+
+  /* ── Core ── */
+  --background: oklch(0.98 0.005 85);
+  --foreground: oklch(0.18 0.01 75);
+
+  /* ── Card / Popover ── */
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.18 0.01 75);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.18 0.01 75);
+
+  /* ── Brand ── */
+  --primary: oklch(0.20 0.015 75);
+  --primary-foreground: oklch(0.98 0.005 85);
+  --secondary: oklch(0.95 0.01 85);
+  --secondary-foreground: oklch(0.20 0.015 75);
+
+  /* ── Surface states ── */
+  --muted: oklch(0.94 0.005 85);
+  --muted-foreground: oklch(0.52 0.015 75);
+  --accent: oklch(0.72 0.15 78); /* Elegant Gold */
+  --accent-foreground: oklch(0.18 0.01 75);
+
+  /* ── Feedback ── */
+  --destructive: oklch(0.58 0.20 25);
+  --destructive-foreground: oklch(0.98 0.005 85);
+  --success: oklch(0.62 0.12 145);
+  --success-foreground: oklch(0.98 0.005 85);
+  --warning: oklch(0.76 0.14 78);
+  --warning-foreground: oklch(0.18 0.01 75);
+
+  /* ── Form chrome ── */
+  --border: oklch(0.90 0.005 85);
+  --border-strong: oklch(0.84 0.012 78);
+  --input: oklch(0.90 0.005 85);
+  --ring: oklch(0.68 0.12 78);
+
+  /* ── Charts (warm metallic) ── */
+  --chart-1: oklch(0.72 0.15 78);
+  --chart-2: oklch(0.58 0.12 78);
+  --chart-3: oklch(0.45 0.10 78);
+  --chart-4: oklch(0.38 0.08 78);
+  --chart-5: oklch(0.30 0.06 78);
+
+  /* ── Sidebar shell ── */
+  --sidebar: oklch(0.97 0.008 85);
+  --sidebar-foreground: oklch(0.18 0.01 75);
+  --sidebar-primary: oklch(0.72 0.15 78);
+  --sidebar-primary-foreground: oklch(0.98 0.005 85);
+  --sidebar-accent: oklch(0.95 0.01 85);
+  --sidebar-accent-foreground: oklch(0.20 0.015 75);
+  --sidebar-border: oklch(0.90 0.005 85);
+  --sidebar-ring: oklch(0.68 0.12 78);
+
+  /* ── Sidebar brand ── */
+  --sidebar-brand-bg: oklch(0.18 0.01 75);
+  --sidebar-brand-icon: oklch(0.72 0.15 78);
+  --sidebar-brand-text: oklch(0.72 0.15 78); /* ✨ GOLD BRAND */
+  --sidebar-brand-subtext: oklch(0.62 0.08 78);
+
+  /* ── Nav item — idle ── */
+  --nav-text: oklch(0.50 0.015 75);
+  --nav-icon: oklch(0.60 0.08 78);
+
+  /* ── Nav item — hover ── */
+  --nav-text-hover: oklch(0.18 0.01 75);
+  --nav-icon-hover: oklch(0.72 0.15 78);
+  --nav-bg-hover: oklch(0.72 0.15 78 / 6%);
+
+  /* ── Nav item — active ── */
+  --nav-text-active: oklch(0.18 0.01 75);
+  --nav-icon-active: oklch(0.72 0.15 78);
+  --nav-bg-active: oklch(0.72 0.15 78 / 12%);
+
+  /* ── Nav children ── */
+  --nav-child-text: oklch(0.50 0.015 75);
+  --nav-child-text-active: oklch(0.18 0.01 75);
+  --nav-child-bg-hover: oklch(0.72 0.15 78 / 5%);
+  --nav-child-bg-active: oklch(0.72 0.15 78 / 10%);
+  --nav-child-dot: oklch(0.68 0.08 78);
+  --nav-child-dot-active: oklch(0.72 0.15 78);
+  --nav-child-indicator: oklch(0.72 0.15 78);
+  --nav-child-tree-line: oklch(0.90 0.005 85);
+
+  /* ── Chevron ── */
+  --nav-chevron: oklch(0.60 0.08 78);
+  --nav-chevron-open: oklch(0.50 0.015 75);
+  --nav-chevron-active: oklch(0.72 0.15 78);
+
+  /* ── Section label ── */
+  --nav-section-label: oklch(0.62 0.08 78);
+
+  /* ── Footer ── */
+  --sidebar-footer-border: oklch(0.90 0.005 85);
+  --sidebar-footer-text: oklch(0.58 0.08 78);
+  --sidebar-footer-subtext: oklch(0.72 0.08 78);
+  --sidebar-footer-icon: oklch(0.72 0.15 78);
+
+  /* ── Topbar ── */
+  --topbar: oklch(0.96 0.008 85);
+  --topbar-border: oklch(0.90 0.005 85);
+  --topbar-icon: oklch(0.50 0.015 75);
+  --topbar-icon-hover: oklch(0.18 0.01 75);
+  --topbar-btn-bg-hover: oklch(0.72 0.15 78 / 8%);
+  --topbar-btn-border: oklch(0.90 0.005 85);
+  --topbar-btn-border-hover: oklch(0.84 0.012 78);
+  --topbar-divider: oklch(0.90 0.005 85);
+  --topbar-username: oklch(0.18 0.01 75);
+  --topbar-track: oklch(0.62 0.08 78);
+
+  /* ── Topbar avatar ── */
+  --topbar-avatar-bg: oklch(0.72 0.15 78);
+  --topbar-avatar-text: oklch(0.18 0.01 75);
+  --topbar-avatar-ring: oklch(0.72 0.15 78 / 15%);
+
+  /* ── Topbar role badge ── */
+  --topbar-badge-text: oklch(0.72 0.15 78);
+  --topbar-badge-bg: oklch(0.72 0.15 78 / 12%);
+  --topbar-badge-border: oklch(0.72 0.15 78 / 25%);
+
+  /* ── Topbar dropdown ── */
+  --topbar-dd-bg: oklch(0.96 0.008 85);
+  --topbar-dd-border: oklch(0.90 0.005 85);
+  --topbar-dd-item-text: oklch(0.35 0.015 75);
+  --topbar-dd-item-text-hover: oklch(0.18 0.01 75);
+  --topbar-dd-item-bg-hover: oklch(0.72 0.15 78 / 6%);
+  --topbar-dd-divider: oklch(0.90 0.005 85);
+  --topbar-dd-danger-text: oklch(0.55 0.20 25);
+  --topbar-dd-danger-bg-hover: oklch(0.55 0.20 25 / 6%);
+  --topbar-dd-icon: oklch(0.60 0.08 78);
+
+  /* ── Dashboard ── */
+  --dash-heading: oklch(0.18 0.01 75);
+  --dash-subtext: oklch(0.50 0.015 75);
+  --dash-greeting-accent: oklch(0.72 0.15 78);
+
+  /* ── Stat card ── */
+  --stat-card-bg: oklch(0.99 0.002 85);
+  --stat-card-border: oklch(0.90 0.005 85);
+  --stat-card-label: oklch(0.50 0.015 75);
+  --stat-card-value: oklch(0.18 0.01 75);
+  --stat-card-icon-bg: oklch(0.72 0.15 78 / 10%);
+  --stat-card-icon-color: oklch(0.72 0.15 78);
+  --stat-card-trend-up: oklch(0.62 0.12 145);
+  --stat-card-trend-down: oklch(0.55 0.20 25);
+
+  /* ── Quick action card ── */
+  --qa-card-bg: oklch(0.99 0.002 85);
+  --qa-card-border: oklch(0.90 0.005 85);
+  --qa-item-bg: oklch(0.72 0.15 78 / 8%);
+  --qa-item-bg-hover: oklch(0.72 0.15 78 / 16%);
+  --qa-item-text: oklch(0.45 0.06 78);
+  --qa-item-text-hover: oklch(0.18 0.01 75);
+  --qa-item-icon: oklch(0.72 0.15 78);
+
+  /* ── Status card ── */
+  --status-ok-text: oklch(0.50 0.12 145);
+  --status-ok-dot: oklch(0.62 0.12 145);
+  --status-warn-text: oklch(0.60 0.14 78);
+  --status-warn-dot: oklch(0.72 0.15 78);
+  --status-error-text: oklch(0.55 0.20 25);
+  --status-error-dot: oklch(0.58 0.22 25);
+
+  /* ── Support card ── */
+  --support-btn-bg: oklch(0.94 0.008 85);
+  --support-btn-bg-hover: oklch(0.90 0.005 85);
+  --support-btn-text: oklch(0.35 0.015 75);
+
+  /* ── Page header ── */
+  --page-heading: oklch(0.18 0.01 75);
+  --page-subtext: oklch(0.50 0.015 75);
+
+  /* ── User avatar ── */
+  --user-avatar-bg: oklch(0.72 0.15 78 / 14%);
+  --user-avatar-text: oklch(0.45 0.06 78);
+
+  /* ── Pending badge ── */
+  --pending-badge-text: oklch(0.60 0.14 78);
+  --pending-badge-bg: oklch(0.72 0.15 78 / 14%);
+  --pending-badge-border: oklch(0.72 0.15 78 / 30%);
+
+  /* ── User card ── */
+  --user-card-bg: oklch(0.99 0.002 85);
+  --user-card-border: oklch(0.90 0.005 85);
+  --user-card-border-hover: oklch(0.72 0.15 78 / 40%);
+  --user-card-meta: oklch(0.50 0.015 75);
+
+  /* ── Approve button ── */
+  --btn-approve-bg: oklch(0.18 0.01 75);
+  --btn-approve-bg-hover: oklch(0.25 0.015 75);
+  --btn-approve-text: oklch(0.98 0.005 85);
+  --btn-approve-border: oklch(0.18 0.01 75);
+
+  /* ── Reject button ── */
+  --btn-reject-bg: transparent;
+  --btn-reject-bg-hover: oklch(0.55 0.20 25 / 6%);
+  --btn-reject-text: oklch(0.55 0.20 25);
+  --btn-reject-border: oklch(0.55 0.20 25 / 40%);
+
+  /* ── Outline / ghost button ── */
+  --btn-outline-bg: transparent;
+  --btn-outline-bg-hover: oklch(0.72 0.15 78 / 6%);
+  --btn-outline-text: oklch(0.35 0.015 75);
+  --btn-outline-border: oklch(0.84 0.012 78);
+
+  /* ── Empty state ── */
+  --empty-icon: oklch(0.72 0.15 78 / 35%);
+  --empty-text: oklch(0.50 0.015 75);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   DARK  —  deep ink × refined gold
+═══════════════════════════════════════════════════════════ */
+.dark {
+  /* ── Core ── */
+  --background: oklch(0.12 0.01 75);
+  --foreground: oklch(0.96 0.01 85);
+
+  /* ── Card / Popover ── */
+  --card: oklch(0.18 0.01 75);
+  --card-foreground: oklch(0.96 0.01 85);
+  --popover: oklch(0.18 0.01 75);
+  --popover-foreground: oklch(0.96 0.01 85);
+
+  /* ── Brand ── */
+  --primary: oklch(0.90 0.01 85);
+  --primary-foreground: oklch(0.18 0.01 75);
+  --secondary: oklch(0.24 0.01 75);
+  --secondary-foreground: oklch(0.96 0.01 85);
+
+  /* ── Surface states ── */
+  --muted: oklch(0.24 0.01 75);
+  --muted-foreground: oklch(0.65 0.02 75);
+  --accent: oklch(0.80 0.14 78); /* Elegant Gold Dark */
+  --accent-foreground: oklch(0.18 0.01 75);
+
+  /* ── Feedback ── */
+  --destructive: oklch(0.68 0.18 25);
+  --destructive-foreground: oklch(0.96 0.01 85);
+  --success: oklch(0.58 0.12 145);
+  --success-foreground: oklch(0.96 0.01 85);
+  --warning: oklch(0.72 0.14 78);
+  --warning-foreground: oklch(0.18 0.01 75);
+
+  /* ── Form chrome ── */
+  --border: oklch(1 0 0 / 10%);
+  --border-strong: oklch(1 0 0 / 18%);
+  --input: oklch(1 0 0 / 12%);
+  --ring: oklch(0.72 0.14 78);
+
+  /* ── Charts ── */
+  --chart-1: oklch(0.80 0.14 78);
+  --chart-2: oklch(0.65 0.12 78);
+  --chart-3: oklch(0.55 0.10 78);
+  --chart-4: oklch(0.45 0.08 78);
+  --chart-5: oklch(0.35 0.06 78);
+
+  /* ── Sidebar shell ── */
+  --sidebar: oklch(0.15 0.01 75);
+  --sidebar-foreground: oklch(0.96 0.01 85);
+  --sidebar-primary: oklch(0.80 0.14 78);
+  --sidebar-primary-foreground: oklch(0.18 0.01 75);
+  --sidebar-accent: oklch(0.24 0.01 75);
+  --sidebar-accent-foreground: oklch(0.96 0.01 85);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.72 0.14 78);
+
+  /* ── Sidebar brand ── */
+  --sidebar-brand-bg: oklch(0.20 0.01 75);
+  --sidebar-brand-icon: oklch(0.80 0.14 78);
+  --sidebar-brand-text: oklch(0.80 0.14 78); /* ✨ GOLD BRAND */
+  --sidebar-brand-subtext: oklch(0.55 0.08 78);
+
+  /* ── Nav item — idle ── */
+  --nav-text: oklch(0.52 0.02 75);
+  --nav-icon: oklch(0.45 0.05 78);
+
+  /* ── Nav item — hover ── */
+  --nav-text-hover: oklch(0.96 0.01 85);
+  --nav-icon-hover: oklch(0.80 0.14 78);
+  --nav-bg-hover: oklch(1 0 0 / 6%);
+
+  /* ── Nav item — active ── */
+  --nav-text-active: oklch(0.96 0.01 85);
+  --nav-icon-active: oklch(0.80 0.14 78);
+  --nav-bg-active: oklch(0.80 0.14 78 / 12%);
+
+  /* ── Nav children ── */
+  --nav-child-text: oklch(0.52 0.02 75);
+  --nav-child-text-active: oklch(0.96 0.01 85);
+  --nav-child-bg-hover: oklch(1 0 0 / 5%);
+  --nav-child-bg-active: oklch(0.80 0.14 78 / 10%);
+  --nav-child-dot: oklch(0.38 0.05 78);
+  --nav-child-dot-active: oklch(0.80 0.14 78);
+  --nav-child-indicator: oklch(0.80 0.14 78);
+  --nav-child-tree-line: oklch(1 0 0 / 10%);
+
+  /* ── Chevron ── */
+  --nav-chevron: oklch(0.45 0.05 78);
+  --nav-chevron-open: oklch(0.60 0.05 78);
+  --nav-chevron-active: oklch(0.80 0.14 78);
+
+  /* ── Section label ── */
+  --nav-section-label: oklch(0.45 0.05 78);
+
+  /* ── Footer ── */
+  --sidebar-footer-border: oklch(1 0 0 / 10%);
+  --sidebar-footer-text: oklch(0.45 0.05 78);
+  --sidebar-footer-subtext: oklch(0.35 0.05 78);
+  --sidebar-footer-icon: oklch(0.80 0.14 78);
+
+  /* ── Topbar ── */
+  --topbar: oklch(0.16 0.01 75);
+  --topbar-border: oklch(1 0 0 / 10%);
+  --topbar-icon: oklch(0.52 0.02 75);
+  --topbar-icon-hover: oklch(0.96 0.01 85);
+  --topbar-btn-bg-hover: oklch(1 0 0 / 6%);
+  --topbar-btn-border: oklch(1 0 0 / 14%);
+  --topbar-btn-border-hover: oklch(1 0 0 / 22%);
+  --topbar-divider: oklch(1 0 0 / 10%);
+  --topbar-username: oklch(0.96 0.01 85);
+  --topbar-track: oklch(0.55 0.08 78);
+
+  /* ── Topbar avatar ── */
+  --topbar-avatar-bg: oklch(0.80 0.14 78);
+  --topbar-avatar-text: oklch(0.18 0.01 75);
+  --topbar-avatar-ring: oklch(0.80 0.14 78 / 20%);
+
+  /* ── Topbar role badge ── */
+  --topbar-badge-text: oklch(0.80 0.14 78);
+  --topbar-badge-bg: oklch(0.80 0.14 78 / 12%);
+  --topbar-badge-border: oklch(0.80 0.14 78 / 22%);
+
+  /* ── Topbar dropdown ── */
+  --topbar-dd-bg: oklch(0.20 0.01 75);
+  --topbar-dd-border: oklch(1 0 0 / 10%);
+  --topbar-dd-item-text: oklch(0.65 0.02 75);
+  --topbar-dd-item-text-hover: oklch(0.96 0.01 85);
+  --topbar-dd-item-bg-hover: oklch(1 0 0 / 6%);
+  --topbar-dd-divider: oklch(1 0 0 / 10%);
+  --topbar-dd-danger-text: oklch(0.70 0.18 25);
+  --topbar-dd-danger-bg-hover: oklch(0.70 0.18 25 / 8%);
+  --topbar-dd-icon: oklch(0.45 0.05 78);
+
+  /* ── Dashboard ── */
+  --dash-heading: oklch(0.96 0.01 85);
+  --dash-subtext: oklch(0.52 0.02 75);
+  --dash-greeting-accent: oklch(0.80 0.14 78);
+
+  /* ── Stat card ── */
+  --stat-card-bg: oklch(0.16 0.01 75);
+  --stat-card-border: oklch(1 0 0 / 10%);
+  --stat-card-label: oklch(0.52 0.02 75);
+  --stat-card-value: oklch(0.96 0.01 85);
+  --stat-card-icon-bg: oklch(0.80 0.14 78 / 12%);
+  --stat-card-icon-color: oklch(0.80 0.14 78);
+  --stat-card-trend-up: oklch(0.58 0.12 145);
+  --stat-card-trend-down: oklch(0.70 0.18 25);
+
+  /* ── Quick action card ── */
+  --qa-card-bg: oklch(0.16 0.01 75);
+  --qa-card-border: oklch(1 0 0 / 10%);
+  --qa-item-bg: oklch(0.80 0.14 78 / 8%);
+  --qa-item-bg-hover: oklch(0.80 0.14 78 / 16%);
+  --qa-item-text: oklch(0.60 0.05 78);
+  --qa-item-text-hover: oklch(0.96 0.01 85);
+  --qa-item-icon: oklch(0.80 0.14 78);
+
+  /* ── Status card ── */
+  --status-ok-text: oklch(0.58 0.12 145);
+  --status-ok-dot: oklch(0.62 0.12 145);
+  --status-warn-text: oklch(0.72 0.14 78);
+  --status-warn-dot: oklch(0.80 0.14 78);
+  --status-error-text: oklch(0.70 0.18 25);
+  --status-error-dot: oklch(0.70 0.18 25);
+
+  /* ── Support card ── */
+  --support-btn-bg: oklch(0.22 0.01 75);
+  --support-btn-bg-hover: oklch(0.26 0.01 75);
+  --support-btn-text: oklch(0.65 0.02 75);
+
+  /* ── Page header ── */
+  --page-heading: oklch(0.96 0.01 85);
+  --page-subtext: oklch(0.52 0.02 75);
+
+  /* ── User avatar ── */
+  --user-avatar-bg: oklch(0.80 0.14 78 / 15%);
+  --user-avatar-text: oklch(0.80 0.14 78);
+
+  /* ── Pending badge ── */
+  --pending-badge-text: oklch(0.80 0.14 78);
+  --pending-badge-bg: oklch(0.80 0.14 78 / 12%);
+  --pending-badge-border: oklch(0.80 0.14 78 / 25%);
+
+  /* ── User card ── */
+  --user-card-bg: oklch(0.16 0.01 75);
+  --user-card-border: oklch(1 0 0 / 10%);
+  --user-card-border-hover: oklch(0.80 0.14 78 / 35%);
+  --user-card-meta: oklch(0.52 0.02 75);
+
+  /* ── Approve button ── */
+  --btn-approve-bg: oklch(0.80 0.14 78);
+  --btn-approve-bg-hover: oklch(0.85 0.14 78);
+  --btn-approve-text: oklch(0.18 0.01 75);
+  --btn-approve-border: oklch(0.80 0.14 78);
+
+  /* ── Reject button ── */
+  --btn-reject-bg: transparent;
+  --btn-reject-bg-hover: oklch(0.70 0.18 25 / 8%);
+  --btn-reject-text: oklch(0.70 0.18 25);
+  --btn-reject-border: oklch(0.70 0.18 25 / 40%);
+
+  /* ── Outline / ghost button ── */
+  --btn-outline-bg: transparent;
+  --btn-outline-bg-hover: oklch(1 0 0 / 5%);
+  --btn-outline-text: oklch(0.65 0.02 75);
+  --btn-outline-border: oklch(1 0 0 / 18%);
+
+  /* ── Empty state ── */
+  --empty-icon: oklch(0.80 0.14 78 / 30%);
+  --empty-text: oklch(0.52 0.02 75);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   Base layer
+═══════════════════════════════════════════════════════════ */
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply antialiased bg-background text-foreground;
+    font-feature-settings:
+      "rlig" 1,
+      "calt" 1;
+  }
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--border-strong);
+    border-radius: 99px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--muted-foreground);
+  }
+  html {
+    @apply font-sans;
+  }
+}
+
+.font-display-dm {
+  font-family: var(--font-display), serif;
+}
+
+.font-mono-dm {
+  font-family: var(--font-mono-dm), monospace;
+}
+
+.font-syne {
+  font-family: var(--font-syne), sans-serif;
+}
+
+.font-cormorant {
+  font-family: var(--font-cormorant), serif;
+}
+
+.font-geist-sans {
+  font-family: var(--font-geist-sans), sans-serif;
+}
+
+.font-geist-mono {
+  font-family: var(--font-geist-mono), sans-serif;
+}
+
+/* Gradient animation for headline */
+@keyframes gradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+.animate-gradient {
+  animation: gradient 8s ease infinite;
+}
+
+/* Smooth star fill */
+.star-fill {
+  fill: var(--color-accent);
+}
+
+/* Enhanced button hover glow */
+button.group:hover {
+  box-shadow: 0 0 0 2px var(--color-accent), 0 8px 25px -5px var(--color-accent);
+}
