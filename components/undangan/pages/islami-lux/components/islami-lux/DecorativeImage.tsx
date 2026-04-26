@@ -1,8 +1,10 @@
+"use client"
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { ImagePlus, X } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { useEditor } from "@/lib/hooks/useEditor";
+import { useEditor } from "@/components/undangan/lib/hooks/useEditor";
+
 
 interface DecorativeImageProps {
   field: string;
@@ -35,11 +37,42 @@ export function DecorativeImage({
   shape = "rounded",
   size = "lg",
 }: DecorativeImageProps) {
-  const { getValue, setActiveField, activeField } = useEditor();
+  const { isEditable, getValue, setActiveField, activeField } = useEditor();
   const [error, setError] = useState(false);
   const src = getValue(field);
   const isActive = activeField === field;
 
+  // In preview/publish mode, render static image without editing UI
+  if (!isEditable) {
+    if (!src || error) {
+      return (
+        <div
+          className={cn(
+            "flex flex-col items-center justify-center border-2 border-dashed border-primary/30 bg-primary/5",
+            sizeMap[size],
+            shapeMap[shape],
+            fallbackClassName,
+          )}
+        >
+          <ImagePlus className="mb-1 size-6 text-primary/40" />
+          <span className="text-[10px] text-primary/50">Tidak ada foto</span>
+        </div>
+      );
+    }
+
+    return (
+      <div className={cn("relative overflow-hidden", sizeMap[size], shapeMap[shape], className)}>
+        <img
+          src={src}
+          alt={alt}
+          className="h-full w-full object-cover"
+          onError={() => setError(true)}
+        />
+      </div>
+    );
+  }
+
+  // In editor mode, render with editing UI
   if (!src || error) {
     return (
       <motion.button
@@ -87,4 +120,3 @@ export function DecorativeImage({
     </motion.div>
   );
 }
-

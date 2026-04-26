@@ -148,3 +148,31 @@ CREATE TABLE cart_items (
 GRANT ALL ON users TO anon, authenticated;
 GRANT ALL ON sessions TO anon, authenticated;
 GRANT USAGE ON SCHEMA public TO anon, authenticated;
+
+
+-- Jalankan di SQL Editor Supabase
+-- Buat bucket 'templates' jika belum ada
+INSERT INTO storage.buckets (id, name, public)
+VALUES ('templates', 'templates', true)
+ON CONFLICT (id) DO UPDATE SET public = true;
+
+-- Buat policy untuk upload
+CREATE POLICY "Allow authenticated uploads"
+ON storage.objects
+FOR INSERT
+TO public, authenticated
+WITH CHECK (bucket_id = 'templates');
+
+-- Buat policy untuk read public
+CREATE POLICY "Allow public read"
+ON storage.objects
+FOR SELECT
+TO public
+USING (bucket_id = 'templates');
+
+-- Buat policy untuk delete (opsional)
+CREATE POLICY "Allow authenticated deletes"
+ON storage.objects
+FOR DELETE
+TO public, authenticated
+USING (bucket_id = 'templates');

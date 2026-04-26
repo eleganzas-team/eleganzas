@@ -1,8 +1,8 @@
-import { Edit3, X, ImagePlus, Link2 } from "lucide-react";
+  import { Edit3, X, ImagePlus, Link2 } from "lucide-react";
 import { motion } from "framer-motion";
 
 import { Button } from "@/components/ui/button";
-import { useEditor } from "@/lib/hooks/useEditor";
+import { useEditor } from "@/components/undangan/lib/hooks/useEditor";
 
 const labels: Record<string, string> = {
   "couple.bride.name": "Bride name",
@@ -112,9 +112,9 @@ function isUrlField(field: string) {
 }
 
 export function FormRenderer() {
-  const { activeField, getValue, setActiveField, setValue } = useEditor();
+  const { isEditable, activeField, getValue, setActiveField, setValue } = useEditor();
 
-  if (!activeField) return null;
+  if (!isEditable || !activeField) return null;
 
   const useTextarea = isTextareaField(activeField);
   const useImageUrl = isImageUrlField(activeField);
@@ -197,4 +197,3 @@ export function FormRenderer() {
     </motion.aside>
   );
 }
-

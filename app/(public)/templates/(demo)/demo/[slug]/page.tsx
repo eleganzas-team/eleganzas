@@ -9,24 +9,17 @@ type PageProps = {
   params: Promise<{ slug: string; type: string }>;
 };
 
-async function fetchInvitation(slug: string) {
+async function fetchTemplate(slug: string) {
   const supabase = await createClient();
 
   const { data, error } = await supabase
-    .from("user_template")
+    .from("templates")
     .select(
       `
-      *,
-      templates!template_id (
-        id,
-        name,
-        slug,
-        theme
-      )
+      *
     `
     )
     .eq("slug", slug)
-    .eq("is_published", true)
     .single();
 
   if (error || !data) {
@@ -37,18 +30,10 @@ async function fetchInvitation(slug: string) {
   return data;
 }
 
-async function incrementViews(id: string, currentViews: number) {
-  const supabase = await createClient();
-
-  await supabase
-    .from("user_template")
-    .update({ views: (currentViews || 0) + 1 })
-    .eq("id", id);
-}
 
 const templateComponents: Record<string, React.ComponentType<any>> = {
   "islami-lux": IslamicLuxuryInvitationPage,
-  ethereal: EtherealInvitationPage,
+  "ethereal": EtherealInvitationPage,
 };
 
 function getTemplateComponent(slug: string) {
@@ -58,7 +43,7 @@ function getTemplateComponent(slug: string) {
 export async function generateMetadata({ params }: PageProps) {
   const { slug } = await params;
 
-  const invitation = await fetchInvitation(slug);
+  const invitation = await fetchTemplate(slug);
 
   if (!invitation) {
     return {
@@ -77,20 +62,20 @@ export async function generateMetadata({ params }: PageProps) {
 export default async function PublicInvitationPage({ params }: PageProps) {
   const { slug, type } = await params;
 
-  const invitation = await fetchInvitation(slug);
+  const template = await fetchTemplate(slug);
 
-  if (!invitation) {
+  if (!template) {
     notFound();
   }
 
-  await incrementViews(invitation.id, invitation.views || 0);
+//   await incrementViews(invitation.id, invitation.views || 0);
 
-  const template = invitation.templates as {
-    id: string;
-    name: string;
-    slug: string;
-    theme: string | null;
-  } | null;
+//   const template = invitation.templates as {
+//     id: string;
+//     name: string;
+//     slug: string;
+//     theme: string | null;
+//   } | null;
 
   if (!template) {
     notFound();
@@ -98,8 +83,8 @@ export default async function PublicInvitationPage({ params }: PageProps) {
 
   const TemplateComponent = getTemplateComponent(template.slug);
 
-  const config = (invitation.config as Record<string, unknown>) || {};
-  const userData = (config.content as Record<string, unknown>) || {};
+//   const config = (invitation.config as Record<string, unknown>) || {};
+//   const userData = (config.content as Record<string, unknown>) || {};
 
-  return <TemplateComponent mode="publish" userConfig={userData} />;
+  return <TemplateComponent mode="preview" />;
 }

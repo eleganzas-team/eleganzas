@@ -2,12 +2,25 @@
 
 import { useEffect, useState } from "react";
 import { useRouter, useParams } from "next/navigation";
+import Link from "next/link";
 import { useAuth } from "@/contexts/auth-context";
 import { invitationService } from "@/services/user-template.service";
-import { TemplateEditor } from "@/components/dashboard/editor/TemplateEditor";
-import { Loader2 } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Loader2, ArrowLeft, Edit, Monitor } from "lucide-react";
 
-export default function EditorPage() {
+import { IslamicLuxuryInvitationPage } from "@/components/undangan/pages/islami-lux/page";
+import { EtherealInvitationPage } from "@/components/undangan/pages/ethereal/page";
+
+const templateComponents: Record<string, React.ComponentType<any>> = {
+  "islami-lux": IslamicLuxuryInvitationPage,
+  "ethereal": EtherealInvitationPage,
+};
+
+function getTemplateComponent(slug: string) {
+  return templateComponents[slug] || templateComponents["islami-lux"];
+}
+
+export default function PreviewPage() {
   const params = useParams();
   const id = params.id as string;
   const router = useRouter();
@@ -38,18 +51,11 @@ export default function EditorPage() {
         return;
       }
 
-      setUserTemplate({
-        id: data.id,
-        config: (data.config as Record<string, unknown>) || {},
-        is_published: data.is_published || false,
-        subdomain: data.subdomain || "",
-        template_id: data.template_id || "",
-      });
-
+      setUserTemplate(data);
       setTemplate({
         id: data.templates?.id,
-        slug: data.templates?.slug || "islami-lux",
         name: data.templates?.name || "Template",
+        slug: data.templates?.slug || "islami-lux",
         theme: data.templates?.theme || null,
       });
       setIsLoading(false);
@@ -92,7 +98,41 @@ export default function EditorPage() {
     );
   }
 
+  const TemplateComponent = getTemplateComponent(template.slug);
+  const config = (userTemplate.config as Record<string, unknown>) || {};
+  const userData = (config.content as Record<string, unknown>) || {};
+
   return (
-    <TemplateEditor userTemplate={userTemplate} template={template} />
+    <div className="min-h-screen bg-background">
+      <div className="fixed top-0 left-0 right-0 z-50 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+        <div className="flex h-14 items-center justify-between px-4 lg:px-6">
+          <div className="flex items-center gap-4">
+            <Button variant="ghost" size="icon" asChild>
+              <Link href={`/dashboard/editor/${id}`}>
+                <ArrowLeft className="h-4 w-4" />
+              </Link>
+            </Button>
+            <div className="flex items-center gap-2">
+              <Monitor className="h-4 w-4 text-muted-foreground" />
+              <div>
+                <h1 className="text-sm font-semibold">Preview Mode</h1>
+                <p className="text-xs text-muted-foreground">{template.name}</p>
+              </div>
+            </div>
+          </div>
+
+          <Button variant="outline" size="sm" asChild className="gap-2">
+            <Link href={`/dashboard/editor/${id}`}>
+              <Edit className="h-3.5 w-3.5" />
+              Kembali ke Editor
+            </Link>
+          </Button>
+        </div>
+      </div>
+
+      <div className="pt-14">
+        <TemplateComponent mode="preview" userConfig={userData} />
+      </div>
+    </div>
   );
 }

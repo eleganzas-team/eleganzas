@@ -1,11 +1,15 @@
+"use client"
 import { createContext, useContext, useMemo, useState, type ReactNode } from "react";
 
-import { setDeepValue, resolveValue } from "@/lib/engine/resolver";
+import { setDeepValue, resolveValue } from "@/components/undangan/lib/engine/resolver";
+import type { EditorMode } from "@/components/undangan/lib/engine/generator";
 
 type ThemeMapping = Record<string, readonly string[]>;
 type EditableData = Record<string, unknown>;
 
 type EditorContextValue = {
+  mode: EditorMode;
+  isEditable: boolean;
   activeField: string | null;
   userData: EditableData;
   getEditablePath: (field: string) => string | null;
@@ -26,31 +30,47 @@ export function EditorProvider({
   defaultData,
   initialUserData,
   mapping,
+  mode = "editor",
+  onChange,
 }: {
   children: ReactNode;
   defaultData: EditableData;
   initialUserData: EditableData;
   mapping: ThemeMapping;
+  mode?: EditorMode;
+  onChange?: (userData: EditableData) => void;
 }) {
   const [userData, setUserData] = useState<EditableData>(initialUserData);
   const [activeField, setActiveField] = useState<string | null>(null);
+
+  const isEditable = mode === "editor";
 
   const value = useMemo<EditorContextValue>(() => {
     const sources = { user: userData, default: defaultData };
 
     return {
-      activeField,
+      mode,
+      isEditable,
+      activeField: isEditable ? activeField : null,
       userData,
       getEditablePath: (field) => getUserEditablePath(mapping[field]),
       getValue: (field) => String(resolveValue([...(mapping[field] ?? [])], sources) ?? ""),
-      setActiveField,
-      setValue: (field, fieldValue) => {
-        const editablePath = getUserEditablePath(mapping[field]);
-        if (!editablePath) return;
-        setUserData((current) => setDeepValue(current, editablePath, fieldValue));
-      },
+      setActiveField: isEditable
+        ? setActiveField
+        : () => {}, // no-op in non-editor modes
+      setValue: isEditable
+        ? (field, fieldValue) => {
+            const editablePath = getUserEditablePath(mapping[field]);
+            if (!editablePath) return;
+            setUserData((current) => {
+              const newData = setDeepValue(current, editablePath, fieldValue);
+              onChange?.(newData);
+              return newData;
+            });
+          }
+        : () => {}, // no-op in non-editor modes
     };
-  }, [activeField, defaultData, mapping, userData]);
+  }, [activeField, defaultData, mapping, userData, mode, isEditable, onChange]);
 
   return <EditorContext.Provider value={value}>{children}</EditorContext.Provider>;
 }

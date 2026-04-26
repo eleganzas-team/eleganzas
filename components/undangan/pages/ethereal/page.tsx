@@ -1,3 +1,4 @@
+"use client"
 import { useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -12,12 +13,13 @@ import {
   Send,
 } from "lucide-react";
 
-import { Editable } from "@/components/editor/Editable";
-import { FormRenderer } from "@/components/editor/FormRenderer";
-import { etherealMapping } from "@/app/ethereal/mapping";
-import { defaultDataEthereal } from "@/lib/config/defaultData";
-import { mockUserDataEthereal } from "@/lib/config/mockUserDataEthereal";
-import { EditorProvider } from "@/lib/hooks/useEditor";
+import { Editable } from "@/components/undangan/editor/Editable";
+import { FormRenderer } from "@/components/undangan/editor/FormRenderer";
+import { etherealMapping } from "@/components/undangan/pages/ethereal/mapping";
+import { defaultDataEthereal } from "@/components/undangan/lib/config/defaultData";
+import { mockUserDataEthereal } from "@/components/undangan/lib/config/mockUserDataEthereal";
+import { EditorProvider } from "@/components/undangan/lib/hooks/useEditor";
+import type { EditorMode } from "@/components/undangan/lib/engine/generator";
 
 import { SplashGate } from "@/components/ethereal/SplashGate";
 import { MusicPlayer } from "@/components/ethereal/MusicPlayer";
@@ -51,7 +53,15 @@ function AnimatedSection({ children, animation, id }: { children: React.ReactNod
   return <BookPage key={key} animation={animation} id={id}>{children}</BookPage>;
 }
 
-export function EtherealInvitationPage() {
+export function EtherealInvitationPage({ 
+  mode = "editor",
+  userConfig,
+  onUserDataChange,
+}: { 
+  mode?: EditorMode;
+  userConfig?: Record<string, unknown>;
+  onUserDataChange?: (userData: Record<string, unknown>) => void;
+}) {
   const [isOpen, setIsOpen] = useState(false);
   const [animation, setAnimation] = useState("fade");
   const [musicUrl, setMusicUrl] = useState("/music/background.mp3");
@@ -71,7 +81,13 @@ export function EtherealInvitationPage() {
   const eventDate = "2025-12-20";
 
   return (
-    <EditorProvider defaultData={defaultDataEthereal} initialUserData={mockUserDataEthereal} mapping={etherealMapping}>
+    <EditorProvider 
+      defaultData={defaultDataEthereal} 
+      initialUserData={userConfig || mockUserDataEthereal} 
+      mapping={etherealMapping} 
+      mode={mode}
+      onChange={onUserDataChange}
+    >
       <div className="theme-ethereal min-h-screen bg-background font-serif text-foreground relative overflow-x-hidden">
         {isOpen && <FloatingElements />}
         <AnimatePresence>{!isOpen && <SplashGate onOpen={handleOpen} />}</AnimatePresence>

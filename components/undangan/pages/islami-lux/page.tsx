@@ -1,3 +1,4 @@
+"use client"
 import { motion } from "framer-motion";
 import {
   CalendarDays,
@@ -18,6 +19,8 @@ import { EditorProvider } from "@/components/undangan/lib/hooks/useEditor";
 import { defaultDataIslamiLux } from "@/components/undangan/lib/config/defaultData";
 import { mockUserDataIslamiLux } from "@/components/undangan/lib/config/mockUserDataIslamiLux";
 import { islamiLuxMapping } from "./mapping";
+import type { EditorMode } from "@/components/undangan/lib/engine/generator";
+
 import { BismillahDecorative, CornerFrame, CrescentStar, FloatingOrnaments, FloralArabesque, GeometricBorder, OrnamentDivider, RotatingMandala } from "./components/islami-lux/AnimatedDecorations";
 import { DecorativeImage } from "./components/islami-lux/DecorativeImage";
 import { CountdownTimer } from "./components/islami-lux/CountdownTimer";
@@ -56,13 +59,25 @@ function Section({
   );
 }
 
-export function IslamicLuxuryInvitationPage() {
+export function IslamicLuxuryInvitationPage({ 
+  mode = "editor",
+  userConfig,
+  onUserDataChange,
+}: { 
+  mode?: EditorMode;
+  userConfig?: Record<string, unknown>;
+  onUserDataChange?: (userData: Record<string, unknown>) => void;
+}) {
   return (
     <EditorProvider
       defaultData={defaultDataIslamiLux}
-      initialUserData={mockUserDataIslamiLux}
+      initialUserData={userConfig || mockUserDataIslamiLux}
       mapping={islamiLuxMapping}
+      mode={mode}
+      onChange={onUserDataChange}
     >
+
+
       <main className="theme-islami-lux relative min-h-screen overflow-hidden bg-background font-serif text-foreground">
         <FloatingOrnaments />
 
@@ -545,4 +560,3 @@ export function IslamicLuxuryInvitationPage() {
     </EditorProvider>
   );
 }
-
