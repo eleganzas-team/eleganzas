@@ -44,7 +44,7 @@ export const authService = {
         full_name: fullName,
         role: 'user',
       })
-      .select("id, email, full_name, avatar_url, role, phone, wedding_date, created_at")
+      .select("id, email, full_name, avatar_url, role, phone, created_at")
       .single();
     
     if (error) {
@@ -208,7 +208,7 @@ export const authService = {
         updated_at: new Date().toISOString(),
       })
       .eq("id", userId)
-      .select("id, email, full_name, avatar_url, role, phone, wedding_date, created_at")
+      .select("id, email, full_name, avatar_url, role, phone, created_at")
       .single();
     
     if (error) {

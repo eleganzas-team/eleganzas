@@ -97,41 +97,35 @@ export interface Database {
           tagline: string | null;
           description: string | null;
           price: number;
+          type_template: string;
           category: string;
           tags: string[] | null;
           theme: string | null;
           thumbnail: string | null;
-          gallery: string[] | null;
+          images: string[] | null;
+          features: string[] | null;
           demo_url: string | null;
-          tier: "standard" | "premium" | "exclusive";
           rating: number;
           sales: number;
-          is_active: boolean;
-          is_featured: boolean;
-          is_trending: boolean;
-          is_new: boolean;
           created_at: string;
           updated_at: string;
         };
         Insert: {
           id?: string;
-          name: string;
+          name?: string;
           tagline?: string | null;
           description?: string | null;
-          price: number;
-          category: string;
+          price?: number;
+          type_template?: string;
+          category?: string;
           tags?: string[] | null;
           theme?: string | null;
           thumbnail?: string | null;
-          gallery?: string[] | null;
+          images?: string[] | null;
+          features?: string[] | null;
           demo_url?: string | null;
-          tier?: "standard" | "premium" | "exclusive";
           rating?: number;
           sales?: number;
-          is_active?: boolean;
-          is_featured?: boolean;
-          is_trending?: boolean;
-          is_new?: boolean;
           created_at?: string;
           updated_at?: string;
         };
@@ -141,19 +135,17 @@ export interface Database {
           tagline?: string | null;
           description?: string | null;
           price?: number;
+          type_template?: string;
           category?: string;
           tags?: string[] | null;
           theme?: string | null;
           thumbnail?: string | null;
-          gallery?: string[] | null;
+          images?: string[] | null;
+          features?: string[] | null;
           demo_url?: string | null;
-          tier?: "standard" | "premium" | "exclusive";
           rating?: number;
           sales?: number;
-          is_active?: boolean;
-          is_featured?: boolean;
-          is_trending?: boolean;
-          is_new?: boolean;
+          created_at?: string;
           updated_at?: string;
         };
       };
@@ -186,37 +178,37 @@ export interface Database {
           updated_at?: string;
         };
       };
-      template_config_user: {
+      user_template: {
         Row: {
           id: string;
           user_id: string;
           template_id: string;
-          invitation_id: string;
-            config?: Json;
-          status: "draft" | "published" | "archived";
-          version: number;
+          order_id:string;
+          config: Json;
+          subdomain:string;
+          is_published: boolean;
           created_at: string;
           updated_at: string;
         };
         Insert: {
           id?: string;
-          user_id: string;
-          template_id: string;
-          invitation_id: string;
-            config?: Json;
-          status?: "draft" | "published" | "archived";
-          version?: number;
+          user_id?: string;
+          template_id?: string;
+          order_id?:string;
+          config?: Json;
+          subdomain?:string;
+          is_published?: boolean;
           created_at?: string;
           updated_at?: string;
         };
-        Update: {
-          id?: string;
+        Update: {id?: string;
           user_id?: string;
           template_id?: string;
-          invitation_id?: string;
-            config?: Json;
-          status?: "draft" | "published" | "archived";
-          version?: number;
+          order_id?:string;
+          config?: Json;
+          subdomain?:string;
+          is_published?: boolean;
+          created_at?: string;
           updated_at?: string;
         };
       };
@@ -225,7 +217,7 @@ export interface Database {
           id: string;
           user_id: string;
           template_id: string | null;
-          invitation_id: string | null;
+          user_template_id: string | null;
           order_number: string;
           status: "pending" | "paid" | "processing" | "completed" | "cancelled";
           total_amount: number;
@@ -244,7 +236,7 @@ export interface Database {
           id?: string;
           user_id: string;
           template_id?: string | null;
-          invitation_id?: string | null;
+          user_template_id?: string | null;
           order_number: string;
           status?:
             | "pending"
@@ -268,7 +260,7 @@ export interface Database {
           id?: string;
           user_id?: string;
           template_id?: string | null;
-          invitation_id?: string | null;
+          user_template_id?: string | null;
           order_number?: string;
           status?:
             | "pending"
@@ -335,7 +327,7 @@ export interface Database {
       guests: {
         Row: {
           id: string;
-          invitation_id: string;
+          user_template_id: string;
           name: string;
           email: string | null;
           phone: string | null;
@@ -348,7 +340,7 @@ export interface Database {
         };
         Insert: {
           id?: string;
-          invitation_id: string;
+          user_template_id: string;
           name: string;
           email?: string | null;
           phone?: string | null;
@@ -361,7 +353,7 @@ export interface Database {
         };
         Update: {
           id?: string;
-          invitation_id?: string;
+          user_template_id?: string;
           name?: string;
           email?: string | null;
           phone?: string | null;
