@@ -1,0 +1,199 @@
+/* ============================================
+   ETHEREAL THEME — Undangan Digital seperti Buku
+   ============================================ */
+
+@theme inline {
+  --color-ethereal-bg: var(--ethereal-bg);
+  --color-ethereal-fg: var(--ethereal-fg);
+  --color-ethereal-primary: var(--ethereal-primary);
+  --color-ethereal-primary-light: var(--ethereal-primary-light);
+  --color-ethereal-accent: var(--ethereal-accent);
+  --color-ethereal-gold: var(--ethereal-gold);
+  --color-ethereal-gold-light: var(--ethereal-gold-light);
+  --color-ethereal-cream: var(--ethereal-cream);
+  --color-ethereal-ivory: var(--ethereal-ivory);
+  --color-ethereal-parchment: var(--ethereal-parchment);
+  --color-ethereal-rose: var(--ethereal-rose);
+  --color-ethereal-rose-light: var(--ethereal-rose-light);
+  --color-ethereal-sage: var(--ethereal-sage);
+  --color-ethereal-sage-light: var(--ethereal-sage-light);
+  --color-ethereal-shadow: var(--ethereal-shadow);
+  --color-ethereal-glass: var(--ethereal-glass);
+
+  --font-elegant: var(--font-elegant-serif);
+  --font-script: var(--font-script);
+}
+
+.theme-ethereal {
+  --ethereal-bg: oklch(0.97 0.01 85);
+  --ethereal-fg: oklch(0.2 0.03 60);
+  --ethereal-primary: oklch(0.5 0.08 140);
+  --ethereal-primary-light: oklch(0.7 0.06 140);
+  --ethereal-accent: oklch(0.55 0.1 30);
+  --ethereal-gold: oklch(0.75 0.12 85);
+  --ethereal-gold-light: oklch(0.88 0.08 85);
+  --ethereal-cream: oklch(0.96 0.015 85);
+  --ethereal-ivory: oklch(0.98 0.008 85);
+  --ethereal-parchment: oklch(0.94 0.02 90);
+  --ethereal-rose: oklch(0.7 0.1 20);
+  --ethereal-rose-light: oklch(0.85 0.06 20);
+  --ethereal-sage: oklch(0.65 0.06 150);
+  --ethereal-sage-light: oklch(0.82 0.04 150);
+  --ethereal-shadow: oklch(0.3 0.03 60 / 15%);
+  --ethereal-glass: oklch(0.98 0.005 85 / 70%);
+
+  --font-elegant-serif: "Playfair Display", Georgia, "Times New Roman", serif;
+  --font-script: "Great Vibes", "Dancing Script", cursive;
+
+  --background: var(--ethereal-bg);
+  --foreground: var(--ethereal-fg);
+  --card: var(--ethereal-ivory);
+  --card-foreground: var(--ethereal-fg);
+  --primary: var(--ethereal-primary);
+  --primary-foreground: var(--ethereal-ivory);
+  --muted: var(--ethereal-parchment);
+  --muted-foreground: oklch(0.5 0.02 60);
+  --accent: var(--ethereal-gold);
+  --accent-foreground: var(--ethereal-fg);
+  --border: oklch(0.85 0.02 85);
+  --ring: var(--ethereal-gold);
+}
+
+/* Book page effect */
+.ethereal-book-page {
+  position: relative;
+  background: linear-gradient(
+    to right,
+    var(--ethereal-parchment) 0%,
+    var(--ethereal-ivory) 5%,
+    var(--ethereal-ivory) 95%,
+    var(--ethereal-parchment) 100%
+  );
+  box-shadow:
+    0 4px 6px -1px var(--ethereal-shadow),
+    0 2px 4px -2px var(--ethereal-shadow),
+    inset 30px 0 40px -30px oklch(0.3 0.02 60 / 8%),
+    inset -30px 0 40px -30px oklch(0.3 0.02 60 / 8%);
+  border-radius: 4px;
+}
+
+/* Page curl effect */
+.ethereal-page-curl {
+  position: relative;
+}
+.ethereal-page-curl::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, transparent 50%, oklch(0.85 0.02 85 / 30%) 50%);
+  border-radius: 0 0 4px 0;
+  pointer-events: none;
+}
+
+/* Splash gate */
+.ethereal-splash {
+  background: linear-gradient(135deg, var(--ethereal-cream) 0%, var(--ethereal-ivory) 50%, var(--ethereal-rose-light) 100%);
+}
+
+/* Gold gradient text */
+.ethereal-gold-text {
+  background: linear-gradient(135deg, var(--ethereal-gold) 0%, var(--ethereal-accent) 50%, var(--ethereal-gold) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Shimmer animation */
+@keyframes ethereal-shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+.ethereal-shimmer {
+  background: linear-gradient(90deg, transparent, oklch(0.95 0.02 85 / 50%), transparent);
+  background-size: 200% 100%;
+  animation: ethereal-shimmer 3s ease-in-out infinite;
+}
+
+/* Float animation */
+@keyframes ethereal-float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-20px) rotate(2deg); }
+}
+
+.ethereal-float {
+  animation: ethereal-float 6s ease-in-out infinite;
+}
+
+/* Pulse glow */
+@keyframes ethereal-pulse-glow {
+  0%, 100% { box-shadow: 0 0 20px oklch(0.75 0.1 85 / 30%); }
+  50% { box-shadow: 0 0 40px oklch(0.75 0.1 85 / 60%); }
+}
+
+.ethereal-pulse-glow {
+  animation: ethereal-pulse-glow 3s ease-in-out infinite;
+}
+
+/* Reveal from bottom */
+@keyframes ethereal-reveal {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Parallax layers */
+.ethereal-parallax-bg {
+  will-change: transform;
+}
+
+/* Music player */
+.ethereal-music-player {
+  backdrop-filter: blur(12px);
+  background: var(--ethereal-glass);
+  border: 1px solid oklch(0.85 0.02 85 / 50%);
+}
+
+/* Progress bar */
+.ethereal-progress-bar {
+  background: linear-gradient(90deg, var(--ethereal-primary), var(--ethereal-gold));
+}
+
+/* Confetti colors */
+.ethereal-confetti-1 { background: var(--ethereal-gold); }
+.ethereal-confetti-2 { background: var(--ethereal-rose); }
+.ethereal-confetti-3 { background: var(--ethereal-sage); }
+.ethereal-confetti-4 { background: var(--ethereal-primary); }
+.ethereal-confetti-5 { background: var(--ethereal-accent); }
+
+/* Scrollbar styling */
+.theme-ethereal ::-webkit-scrollbar {
+  width: 8px;
+}
+.theme-ethereal ::-webkit-scrollbar-track {
+  background: var(--ethereal-cream);
+}
+.theme-ethereal ::-webkit-scrollbar-thumb {
+  background: var(--ethereal-gold);
+  border-radius: 4px;
+}
+.theme-ethereal ::-webkit-scrollbar-thumb:hover {
+  background: var(--ethereal-accent);
+}
+
+/* Selection color */
+.theme-ethereal ::selection {
+  background: var(--ethereal-gold-light);
+  color: var(--ethereal-fg);
+}
+
+/* Loading spinner */
+@keyframes ethereal-spin {
+  to { transform: rotate(360deg); }
+}
+.ethereal-spin {
+  animation: ethereal-spin 1s linear infinite;
+}
+
