@@ -51,7 +51,7 @@ export function HomeContent({ featuredTemplates, stats }: HomeContentProps) {
       initial="hidden"
       animate="show"
       variants={staggerContainer}
-      className=" pb-20"
+      className=" flex flex-col gap-10 pb-20"
     >
       <HeroSection stats={stats} />
       <FeaturesSection />

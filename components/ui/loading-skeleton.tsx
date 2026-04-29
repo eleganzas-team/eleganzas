@@ -3,7 +3,7 @@
 import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
 
-export function MarketplaceSkeleton() {
+export function templatesSkeleton() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-background to-muted/20">
       <div className="border-b border-border">

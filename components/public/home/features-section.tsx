@@ -54,7 +54,7 @@ const features = [
 
 export function FeaturesSection() {
   return (
-    <section className="container mx-auto px-4">
+    <section className="container min-h-screen mx-auto px-4">
       <motion.div variants={fadeInUp} className="mb-12 text-center">
         <h2 className="font-cormorant text-4xl font-bold text-foreground md:text-5xl">
           Kenapa Memilih eleganzas?

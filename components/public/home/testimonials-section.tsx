@@ -15,26 +15,26 @@ const staggerContainer = {
 
 const testimonials = [
   {
-    name: "Sarah & Reza",
-    role: "Pernikahan - Jan 2024",
+    name: "Sarah & Fadil",
+    role: "Pernikahan - Jan 2026",
     content: "Undangan digital eleganzas sangat memudahkan kami. Tamu-tamu suka dengan desainnya yang cantik!",
     rating: 5,
     image: "https://images.unsplash.com/photo-1494790108755-2616c710cd93?w=100&h=100&fit=crop",
   },
-  {
-    name: "Diana & Andi",
-    role: "Pernikahan - Des 2023",
-    content: "Fitur RSVP digital sangat membantu tracking tamu yang hadir. Recommended!",
-    rating: 5,
-    image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop",
-  },
-  {
-    name: "Maya & Budi",
-    role: "Pernikahan - Nov 2023",
-    content: "Template-nya banyak pilihan dan semua elegant. Customer service juga responsif.",
-    rating: 5,
-    image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop",
-  },
+  // {
+  //   name: "Diana & Andi",
+  //   role: "Pernikahan - Des 2023",
+  //   content: "Fitur RSVP digital sangat membantu tracking tamu yang hadir. Recommended!",
+  //   rating: 5,
+  //   image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop",
+  // },
+  // {
+  //   name: "Maya & Budi",
+  //   role: "Pernikahan - Nov 2023",
+  //   content: "Template-nya banyak pilihan dan semua elegant. Customer service juga responsif.",
+  //   rating: 5,
+  //   image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop",
+  // },
 ];
 
 export function TestimonialsSection() {

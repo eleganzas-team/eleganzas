@@ -232,7 +232,7 @@ export default function TemplateDetailPage() {
               Kembali
             </Button>
             <Button
-              onClick={() => router.push("/marketplace")}
+              onClick={() => router.push("/templates")}
               className="bg-rose-500 hover:bg-rose-600"
             >
               Lihat Template Lain

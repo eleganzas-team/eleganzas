@@ -7,7 +7,7 @@ import {
   Sparkles, Menu, X, Sun, Moon, ShoppingCart, ChevronDown, 
   Heart, School, Briefcase, Database, FileText, 
   Calendar, Users, Building, Package, LayoutDashboard,
-  LogIn, UserPlus, Gift, Star, Phone, Info, Clock
+  LogIn, UserPlus, Gift, Star, Phone, Info
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useTheme } from "next-themes";
@@ -23,12 +23,12 @@ import logo from "@/assets/logos-transparent.png";
 const navItems = [
   { label: "Beranda", href: "/", icon: Sparkles },
   { label: "Templates", href: "/templates", hasDropdown: true, icon: LayoutDashboard },
-  // { label: "Harga", href: "/pricing", icon: Gift },
+  { label: "Harga", href: "/pricing", icon: Gift },
   { label: "Tentang", href: "/about", icon: Info },
   { label: "Kontak", href: "/contact", icon: Phone },
 ];
 
-// Template dropdown items - only Undangan Digital is active
+// Template dropdown items sesuai dengan halaman yang sudah dibuat
 const templateItems = [
   {
     label: "Undangan Digital",
@@ -37,8 +37,7 @@ const templateItems = [
     description: "Undangan pernikahan, ulang tahun, baby shower & berbagai acara",
     color: "rose",
     badge: "15 Template",
-    popular: true,
-    active: true
+    popular: true
   },
   {
     label: "Website Sekolah",
@@ -47,9 +46,7 @@ const templateItems = [
     description: "Portal sekolah, e-learning, manajemen siswa & pembayaran SPP",
     color: "blue",
     badge: "8 Template",
-    popular: false,
-    active: false,
-    comingSoon: true
+    popular: false
   },
   {
     label: "Website Bisnis",
@@ -58,9 +55,7 @@ const templateItems = [
     description: "Toko online, company profile, restoran, hotel & klinik",
     color: "emerald",
     badge: "12 Template",
-    popular: true,
-    active: false,
-    comingSoon: true
+    popular: true
   },
   {
     label: "Sistem Manajemen",
@@ -69,9 +64,7 @@ const templateItems = [
     description: "Inventory, HRD, keuangan, CRM & project management",
     color: "purple",
     badge: "10 Template",
-    popular: false,
-    active: false,
-    comingSoon: true
+    popular: false
   }
 ];
 
@@ -160,18 +153,23 @@ export function PublicNavbar() {
     <>
       <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container mx-auto flex h-16 items-center justify-between px-4">
-          {/* Logo - Simplified */}
+          {/* Logo */}
           <Link href="/" className="flex items-center gap-2 transition-opacity hover:opacity-80">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg shadow-md">
+            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-accent to-primary shadow-md">
               <Image src={logo} alt="Eleganzas" className="h-6 w-6" />
             </div>
-            <span className="font-cormorant text-xl font-bold tracking-tight text-foreground">
-              ELEGANZAS
-            </span>
+            <div>
+              <h1 className="font-cormorant text-xl font-bold leading-tight tracking-tight text-foreground">
+                ELEGANZAS
+              </h1>
+              <p className="text-[10px] uppercase tracking-wider text-muted-foreground">
+                Undangan Digital
+              </p>
+            </div>
           </Link>
 
-          {/* Desktop Navigation - Minimalist */}
-          <nav className="hidden md:flex md:items-center md:gap-1">
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex md:items-center md:gap-1 lg:gap-2">
             {navItems.map((item) => (
               item.hasDropdown ? (
                 <div
@@ -184,9 +182,9 @@ export function PublicNavbar() {
                   <button
                     className={cn(
                       "flex items-center gap-1.5 rounded-md px-3 py-2 text-sm font-medium transition-all duration-200",
-                      "hover:text-accent-foreground",
+                      "hover:bg-accent/10 hover:text-accent-foreground",
                       pathname.startsWith("/templates") 
-                        ? "text-accent-foreground" 
+                        ? "text-accent-foreground bg-accent/10" 
                         : "text-muted-foreground"
                     )}
                   >
@@ -198,89 +196,83 @@ export function PublicNavbar() {
                     )} />
                   </button>
 
-                  {/* Minimalist Dropdown Menu */}
+                  {/* Elegant Dropdown Menu */}
                   <AnimatePresence>
                     {isTemplatesOpen && (
                       <motion.div
-                        initial={{ opacity: 0, y: -8 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -8 }}
-                        transition={{ duration: 0.2 }}
-                        className="absolute left-0 top-full mt-2 w-[320px] overflow-hidden rounded-lg border border-border bg-popover shadow-lg"
+                        initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                        transition={{ duration: 0.2, ease: "easeOut" }}
+                        className="absolute left-0 top-full mt-2 w-[480px] overflow-hidden rounded-xl border border-border bg-popover shadow-2xl"
                       >
-                        <div className="py-2">
-                          {templateItems.map((template) => {
-                            const Icon = template.icon;
-                            const colors = getColorClasses(template.color);
-                            
-                            if (!template.active) {
-                              // Disabled menu item with "Segera" badge
-                              return (
-                                <div
-                                  key={template.href}
-                                  className="relative cursor-not-allowed opacity-60"
-                                >
-                                  <div className="flex items-start gap-3 px-4 py-3">
-                                    <div className={cn("rounded-lg p-2", colors.iconBg)}>
-                                      <Icon className={cn("h-4 w-4", colors.text)} />
-                                    </div>
-                                    <div className="flex-1">
-                                      <div className="flex items-center gap-2">
-                                        <p className="text-sm font-medium">{template.label}</p>
-                                        <Badge 
-                                          variant="secondary" 
-                                          className="bg-amber-100 text-amber-700 dark:bg-amber-950/40 dark:text-amber-400 text-[9px] px-1.5"
-                                        >
-                                          <Clock className="mr-0.5 h-2.5 w-2.5" />
-                                          Segera
-                                        </Badge>
-                                      </div>
-                                      <p className="mt-0.5 text-xs text-muted-foreground">
-                                        {template.description}
-                                      </p>
-                                    </div>
-                                  </div>
-                                </div>
-                              );
-                            }
-                            
-                            // Active menu item
-                            return (
-                              <Link
-                                key={template.href}
-                                href={template.href}
-                                onClick={() => setIsTemplatesOpen(false)}
-                                className="flex items-start gap-3 px-4 py-3 transition-colors hover:bg-accent/5"
-                              >
-                                <div className={cn("rounded-lg p-2", colors.iconBg)}>
-                                  <Icon className={cn("h-4 w-4", colors.text)} />
-                                </div>
-                                <div className="flex-1">
-                                  <div className="flex items-center justify-between">
-                                    <p className="text-sm font-medium">{template.label}</p>
-                                    <Badge variant="outline" className="text-[9px]">
-                                      {template.badge}
-                                    </Badge>
-                                  </div>
-                                  <p className="mt-0.5 text-xs text-muted-foreground">
-                                    {template.description}
-                                  </p>
-                                </div>
-                              </Link>
-                            );
-                          })}
+                        <div className="p-2">
+                          {/* Header */}
+                          <div className="border-b border-border px-3 py-2">
+                            <p className="text-xs font-medium text-muted-foreground">
+                              Pilih Template Sesuai Kebutuhan
+                            </p>
+                          </div>
                           
-                          {/* View All Link - Only show active templates count */}
-                          <div className="border-t border-border mt-2 pt-2 px-4">
+                          {/* Template Items Grid */}
+                          <div className="grid grid-cols-2 gap-1 p-2">
+                            {templateItems.map((template) => {
+                              const Icon = template.icon;
+                              const colors = getColorClasses(template.color);
+                              return (
+                                <Link
+                                  key={template.href}
+                                  href={template.href}
+                                  onClick={() => setIsTemplatesOpen(false)}
+                                  className={cn(
+                                    "group relative flex items-start gap-3 rounded-lg p-3 transition-all duration-200",
+                                    colors.hover,
+                                    "hover:shadow-md"
+                                  )}
+                                >
+                                  {/* Popular Badge */}
+                                  {template.popular && (
+                                    <div className="absolute -right-1 -top-1">
+                                      <Badge className="bg-amber-500 text-[9px] text-white shadow-sm">
+                                        Populer
+                                      </Badge>
+                                    </div>
+                                  )}
+                                  
+                                  {/* Icon */}
+                                  <div className={cn(
+                                    "rounded-lg p-2 transition-all duration-200 group-hover:scale-105",
+                                    colors.iconBg
+                                  )}>
+                                    <Icon className={cn("h-5 w-5", colors.text)} />
+                                  </div>
+                                  
+                                  {/* Content */}
+                                  <div className="flex-1">
+                                    <div className="flex items-center justify-between">
+                                      <p className="text-sm font-semibold">{template.label}</p>
+                                      <Badge variant="outline" className="text-[9px]">
+                                        {template.badge}
+                                      </Badge>
+                                    </div>
+                                    <p className="mt-0.5 text-xs text-muted-foreground line-clamp-2">
+                                      {template.description}
+                                    </p>
+                                  </div>
+                                </Link>
+                              );
+                            })}
+                          </div>
+                          
+                          {/* Footer */}
+                          <div className="border-t border-border mt-1 px-3 py-2">
                             <Link
                               href="/templates"
                               onClick={() => setIsTemplatesOpen(false)}
-                              className="flex items-center justify-between text-xs font-medium text-accent transition-colors hover:text-accent/80"
+                              className="flex items-center justify-center gap-1 text-xs font-medium text-accent transition-colors hover:text-accent/80"
                             >
-                              <span>Lihat Semua Template</span>
-                              <span className="text-xs text-muted-foreground">
-                                {templateItems.filter(t => t.active).length} aktif
-                              </span>
+                              Lihat Semua Template
+                              <ChevronDown className="h-3 w-3 -rotate-90" />
                             </Link>
                           </div>
                         </div>
@@ -293,30 +285,31 @@ export function PublicNavbar() {
                   key={item.href}
                   href={item.href}
                   className={cn(
-                    "rounded-md px-3 py-2 text-sm font-medium transition-all duration-200",
-                    "hover:text-accent-foreground",
+                    "flex items-center gap-1.5 rounded-md px-3 py-2 text-sm font-medium transition-all duration-200",
+                    "hover:bg-accent/10 hover:text-accent-foreground",
                     pathname === item.href 
-                      ? "text-accent-foreground" 
+                      ? "text-accent-foreground bg-accent/10" 
                       : "text-muted-foreground"
                   )}
                 >
+                  <item.icon className="h-4 w-4" />
                   {item.label}
                 </Link>
               )
             ))}
           </nav>
 
-          {/* Right Side Actions - Minimalist */}
-          <div className="hidden md:flex md:items-center md:gap-1">
+          {/* Right Side Actions */}
+          <div className="hidden md:flex md:items-center md:gap-2">
             {/* Theme Toggle */}
             <Button 
               variant="ghost" 
               size="icon" 
               onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-              className="rounded-full transition-all duration-200"
+              className="rounded-full transition-all duration-200 hover:bg-accent/10"
             >
-              <Sun className="h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-              <Moon className="absolute h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+              <Sun className="h-5 w-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+              <Moon className="absolute h-5 w-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
               <span className="sr-only">Toggle theme</span>
             </Button>
 
@@ -325,33 +318,33 @@ export function PublicNavbar() {
               variant="ghost" 
               size="icon" 
               onClick={openCart} 
-              className="relative rounded-full transition-all duration-200"
+              className="relative rounded-full transition-all duration-200 hover:bg-accent/10"
             >
-              <ShoppingCart className="h-4 w-4" />
+              <ShoppingCart className="h-5 w-5" />
               {totalItems > 0 && (
-                <Badge className="absolute -right-1 -top-1 h-4 w-4 rounded-full bg-accent p-0 text-[9px] font-bold text-accent-foreground">
+                <Badge className="absolute -right-1 -top-1 h-5 w-5 rounded-full bg-accent p-0 text-xs font-bold text-accent-foreground">
                   {totalItems}
                 </Badge>
               )}
               <span className="sr-only">Cart</span>
             </Button>
 
-            {/* Auth Buttons or User Menu - Minimalist */}
+            {/* Auth Buttons or User Menu */}
             {user ? (
               <div className="relative" ref={userMenuRef}>
                 <Button
                   variant="ghost"
                   onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
-                  className="gap-2 rounded-full pl-2 pr-3 transition-all duration-200"
+                  className="gap-2 rounded-full pl-2 pr-3 transition-all duration-200 hover:bg-accent/10"
                 >
-                  <div className="flex h-6 w-6 items-center justify-center rounded-full bg-gradient-to-br from-accent to-primary text-xs font-bold text-white">
+                  <div className="flex h-7 w-7 items-center justify-center rounded-full bg-gradient-to-br from-accent to-primary text-xs font-bold text-white">
                     {user.full_name?.charAt(0) || user.email?.charAt(0) || "U"}
                   </div>
-                  <span className="max-w-[100px] truncate text-sm">
+                  <span className="max-w-[100px] truncate text-sm font-medium">
                     {user.full_name?.split(" ")[0] || "User"}
                   </span>
                   <ChevronDown className={cn(
-                    "h-3 w-3 transition-transform duration-200",
+                    "h-3.5 w-3.5 transition-transform duration-200",
                     isUserMenuOpen && "rotate-180"
                   )} />
                 </Button>
@@ -359,18 +352,20 @@ export function PublicNavbar() {
                 <AnimatePresence>
                   {isUserMenuOpen && (
                     <motion.div
-                      initial={{ opacity: 0, y: -8 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -8 }}
+                      initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, y: -10, scale: 0.95 }}
                       transition={{ duration: 0.2 }}
-                      className="absolute right-0 top-full mt-2 w-48 overflow-hidden rounded-lg border border-border bg-popover shadow-lg"
+                      className="absolute right-0 top-full mt-2 w-56 overflow-hidden rounded-xl border border-border bg-popover shadow-2xl"
                     >
-                      <div className="py-2">
-                        <div className="border-b border-border px-4 py-2">
-                          <p className="text-sm font-medium">{user.full_name}</p>
+                      <div className="p-1">
+                        {/* User Info */}
+                        <div className="border-b border-border px-3 py-2">
+                          <p className="text-sm font-semibold">{user.full_name}</p>
                           <p className="text-xs text-muted-foreground">{user.email}</p>
                         </div>
                         
+                        {/* Menu Items */}
                         {userMenuItems.map((item) => {
                           const Icon = item.icon;
                           return (
@@ -378,23 +373,24 @@ export function PublicNavbar() {
                               key={item.href}
                               href={item.href}
                               onClick={() => setIsUserMenuOpen(false)}
-                              className="flex items-center gap-3 px-4 py-2 text-sm transition-colors hover:bg-accent/5"
+                              className="flex items-center gap-3 rounded-md px-3 py-2 text-sm transition-colors hover:bg-accent/10"
                             >
-                              <Icon className="h-3.5 w-3.5 text-muted-foreground" />
+                              <Icon className="h-4 w-4 text-muted-foreground" />
                               {item.label}
                             </Link>
                           );
                         })}
                         
+                        {/* Logout */}
                         <div className="border-t border-border mt-1 pt-1">
                           <button
                             onClick={() => {
                               setIsUserMenuOpen(false);
                               // Add logout logic here
                             }}
-                            className="flex w-full items-center gap-3 px-4 py-2 text-sm text-rose-600 transition-colors hover:bg-rose-50 dark:hover:bg-rose-950/20"
+                            className="flex w-full items-center gap-3 rounded-md px-3 py-2 text-sm text-red-600 transition-colors hover:bg-red-50 dark:hover:bg-red-950/20"
                           >
-                            <LogIn className="h-3.5 w-3.5 rotate-180" />
+                            <LogIn className="h-4 w-4 rotate-180" />
                             Logout
                           </button>
                         </div>
@@ -405,13 +401,13 @@ export function PublicNavbar() {
               </div>
             ) : (
               <>
-                <Button variant="ghost" asChild className="rounded-full">
+                <Button variant="ghost" asChild className="rounded-full transition-all duration-200 hover:bg-accent/10">
                   <Link href="/login" className="gap-2">
                     <LogIn className="h-4 w-4" />
                     Masuk
                   </Link>
                 </Button>
-                <Button variant="default" asChild className="rounded-full shadow-sm">
+                <Button variant="default" asChild className="rounded-full shadow-md transition-all duration-200 hover:shadow-lg">
                   <Link href="/register" className="gap-2">
                     <UserPlus className="h-4 w-4" />
                     Daftar
@@ -429,9 +425,9 @@ export function PublicNavbar() {
               onClick={openCart} 
               className="relative rounded-full"
             >
-              <ShoppingCart className="h-4 w-4" />
+              <ShoppingCart className="h-5 w-5" />
               {totalItems > 0 && (
-                <Badge className="absolute -right-1 -top-1 h-4 w-4 rounded-full bg-accent p-0 text-[9px]">
+                <Badge className="absolute -right-1 -top-1 h-5 w-5 rounded-full bg-accent p-0 text-xs">
                   {totalItems}
                 </Badge>
               )}
@@ -442,28 +438,29 @@ export function PublicNavbar() {
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="rounded-full"
             >
-              {isMobileMenuOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
+              {isMobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </Button>
           </div>
         </div>
 
-        {/* Mobile Menu - Minimalist */}
+        {/* Mobile Menu */}
         <AnimatePresence>
           {isMobileMenuOpen && (
             <motion.div
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.2 }}
+              transition={{ duration: 0.3, ease: "easeInOut" }}
               className="border-t border-border bg-background md:hidden overflow-hidden"
             >
-              <nav className="flex flex-col p-4 gap-1">
+              <nav className="flex flex-col p-4">
+                {/* Main Nav Items */}
                 {navItems.map((item) => (
                   item.hasDropdown ? (
-                    <div key={item.href}>
+                    <div key={item.href} className="py-1">
                       <button
                         onClick={() => setIsMobileTemplatesOpen(!isMobileTemplatesOpen)}
-                        className="flex w-full items-center justify-between rounded-lg px-3 py-2.5 text-sm transition-colors hover:bg-accent/5"
+                        className="flex w-full items-center justify-between rounded-lg px-3 py-2.5 text-sm font-medium transition-colors hover:bg-accent/10"
                       >
                         <span className="flex items-center gap-3">
                           <item.icon className="h-4 w-4" />
@@ -481,33 +478,11 @@ export function PublicNavbar() {
                             initial={{ opacity: 0, height: 0 }}
                             animate={{ opacity: 1, height: "auto" }}
                             exit={{ opacity: 0, height: 0 }}
-                            className="mt-1 ml-6 space-y-1 overflow-hidden"
+                            className="mt-1 ml-4 space-y-1 overflow-hidden"
                           >
                             {templateItems.map((template) => {
                               const Icon = template.icon;
                               const colors = getColorClasses(template.color);
-                              
-                              if (!template.active) {
-                                return (
-                                  <div key={template.href} className="flex items-start gap-3 rounded-lg px-3 py-2 opacity-60">
-                                    <div className={cn("rounded-lg p-1.5", colors.iconBg)}>
-                                      <Icon className={cn("h-3.5 w-3.5", colors.text)} />
-                                    </div>
-                                    <div className="flex-1">
-                                      <div className="flex items-center gap-2">
-                                        <p className="text-sm">{template.label}</p>
-                                        <Badge variant="secondary" className="text-[8px] px-1">
-                                          Segera
-                                        </Badge>
-                                      </div>
-                                      <p className="text-xs text-muted-foreground line-clamp-1">
-                                        {template.description}
-                                      </p>
-                                    </div>
-                                  </div>
-                                );
-                              }
-                              
                               return (
                                 <Link
                                   key={template.href}
@@ -516,12 +491,15 @@ export function PublicNavbar() {
                                     setIsMobileTemplatesOpen(false);
                                     setIsMobileMenuOpen(false);
                                   }}
-                                  className="flex items-start gap-3 rounded-lg px-3 py-2 transition-colors hover:bg-accent/5"
+                                  className={cn(
+                                    "flex items-start gap-3 rounded-lg p-3 transition-colors",
+                                    colors.hover
+                                  )}
                                 >
-                                  <div className={cn("rounded-lg p-1.5", colors.iconBg)}>
-                                    <Icon className={cn("h-3.5 w-3.5", colors.text)} />
+                                  <div className={cn("rounded-lg p-2", colors.iconBg)}>
+                                    <Icon className={cn("h-4 w-4", colors.text)} />
                                   </div>
-                                  <div>
+                                  <div className="flex-1">
                                     <p className="text-sm font-medium">{template.label}</p>
                                     <p className="text-xs text-muted-foreground line-clamp-1">
                                       {template.description}
@@ -530,6 +508,17 @@ export function PublicNavbar() {
                                 </Link>
                               );
                             })}
+                            <Link
+                              href="/templates"
+                              onClick={() => {
+                                setIsMobileTemplatesOpen(false);
+                                setIsMobileMenuOpen(false);
+                              }}
+                              className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm text-accent"
+                            >
+                              Lihat Semua Template
+                              <ChevronDown className="h-3 w-3 -rotate-90" />
+                            </Link>
                           </motion.div>
                         )}
                       </AnimatePresence>
@@ -540,8 +529,8 @@ export function PublicNavbar() {
                       href={item.href}
                       onClick={() => setIsMobileMenuOpen(false)}
                       className={cn(
-                        "flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm transition-colors hover:bg-accent/5",
-                        pathname === item.href && "bg-accent/5"
+                        "flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors hover:bg-accent/10",
+                        pathname === item.href && "bg-accent/10 text-accent-foreground"
                       )}
                     >
                       <item.icon className="h-4 w-4" />
@@ -550,21 +539,24 @@ export function PublicNavbar() {
                   )
                 ))}
                 
-                <div className="my-2 border-t border-border" />
+                {/* Divider */}
+                <div className="my-3 border-t border-border" />
                 
+                {/* Theme Toggle for Mobile */}
                 <button
                   onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                  className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm transition-colors hover:bg-accent/5"
+                  className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors hover:bg-accent/10"
                 >
                   {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
                   {theme === "dark" ? "Light Mode" : "Dark Mode"}
                 </button>
                 
-                <div className="mt-2 flex flex-col gap-1">
+                {/* Auth Section for Mobile */}
+                <div className="mt-2 flex flex-col gap-2">
                   {user ? (
                     <>
                       <div className="flex items-center gap-3 rounded-lg bg-accent/5 px-3 py-2">
-                        <div className="flex h-7 w-7 items-center justify-center rounded-full bg-gradient-to-br from-accent to-primary text-xs font-bold text-white">
+                        <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-accent to-primary text-xs font-bold text-white">
                           {user.full_name?.charAt(0) || user.email?.charAt(0) || "U"}
                         </div>
                         <div className="flex-1">
@@ -579,7 +571,7 @@ export function PublicNavbar() {
                             key={item.href}
                             href={item.href}
                             onClick={() => setIsMobileMenuOpen(false)}
-                            className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm transition-colors hover:bg-accent/5"
+                            className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm transition-colors hover:bg-accent/10"
                           >
                             <Icon className="h-4 w-4" />
                             {item.label}
@@ -591,7 +583,7 @@ export function PublicNavbar() {
                           // Add logout logic
                           setIsMobileMenuOpen(false);
                         }}
-                        className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-rose-600 transition-colors hover:bg-rose-50 dark:hover:bg-rose-950/20"
+                        className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-red-600 transition-colors hover:bg-red-50 dark:hover:bg-red-950/20"
                       >
                         <LogIn className="h-4 w-4 rotate-180" />
                         Logout
@@ -605,7 +597,7 @@ export function PublicNavbar() {
                           Masuk
                         </Link>
                       </Button>
-                      <Button variant="default" asChild className="w-full justify-start gap-3 shadow-sm">
+                      <Button variant="default" asChild className="w-full justify-start gap-3">
                         <Link href="/register" onClick={() => setIsMobileMenuOpen(false)}>
                           <UserPlus className="h-4 w-4" />
                           Daftar

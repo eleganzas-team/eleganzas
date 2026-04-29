@@ -31,14 +31,7 @@ import { WishWall } from "@/components/ethereal/WishWall";
 import { FloatingElements } from "@/components/ethereal/ParallaxLayer";
 import { CountdownTimer } from "@/components/ethereal/CountdownTimer";
 import { GlobalSettings } from "@/components/ethereal/GlobalSettings";
-import { ImageUploader } from "@/components/ethereal/ImageUploader";
-
-const COUPLE_FALLBACK =
-  "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='128' height='128'%3E%3Crect fill='%23f5f0e8' width='128' height='128'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='serif' font-size='14' fill='%23999'%3EFoto%3C/text%3E%3C/svg%3E";
-const GROOM_FALLBACK =
-  "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='112' height='112'%3E%3Crect fill='%23e8e0d5' width='112' height='112'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='serif' font-size='12' fill='%23888'%3EMempelai Pria%3C/text%3E%3C/svg%3E";
-const BRIDE_FALLBACK =
-  "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='112' height='112'%3E%3Crect fill='%23e8d5d5' width='112' height='112'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='serif' font-size='12' fill='%23888'%3EMempelai Wanita%3C/text%3E%3C/svg%3E";
+import { EditableImage } from "@/components/undangan/editor/EditableImage";
 
 const OrnamentDivider = () => (
   <div className="flex items-center justify-center gap-4 py-6">
@@ -57,17 +50,16 @@ export function EtherealInvitationPage({
   mode = "editor",
   userConfig,
   onUserDataChange,
+  userTemplateId,
 }: { 
   mode?: EditorMode;
   userConfig?: Record<string, unknown>;
   onUserDataChange?: (userData: Record<string, unknown>) => void;
+  userTemplateId?: string;
 }) {
   const [isOpen, setIsOpen] = useState(false);
   const [animation, setAnimation] = useState("fade");
   const [musicUrl, setMusicUrl] = useState("/music/background.mp3");
-  const [coupleImage, setCoupleImage] = useState("/images/couple.jpg");
-  const [groomImage, setGroomImage] = useState("/images/groom.jpg");
-  const [brideImage, setBrideImage] = useState("/images/bride.jpg");
   const [galleryImages] = useState([
     "/images/gallery-1.jpg", "/images/gallery-2.jpg", "/images/gallery-3.jpg",
     "/images/gallery-4.jpg", "/images/gallery-5.jpg", "/images/gallery-6.jpg",
@@ -86,6 +78,7 @@ export function EtherealInvitationPage({
       initialUserData={userConfig || mockUserDataEthereal} 
       mapping={etherealMapping} 
       mode={mode}
+      userTemplateId={userTemplateId}
       onChange={onUserDataChange}
     >
       <div className="theme-ethereal min-h-screen bg-background font-serif text-foreground relative overflow-x-hidden">
@@ -114,7 +107,7 @@ export function EtherealInvitationPage({
                   <p className="text-xs sm:text-sm text-muted-foreground/70"><Editable as="span" field="event.dateHijri" /></p>
                   <div className="mt-6 sm:mt-8 flex justify-center">
                     <div className="w-24 h-24 sm:w-32 sm:h-32 rounded-full overflow-hidden border-4 border-gold/30 shadow-xl">
-                      <ImageUploader src={coupleImage} alt="Couple" onImageChange={setCoupleImage} fallbackSvg={COUPLE_FALLBACK} className="w-full h-full object-cover" containerClassName="w-full h-full" />
+                      <EditableImage field="decorative.heroImage" alt="Couple" size="xl" shape="circle" className="w-full h-full" />
                     </div>
                     </div>
                 </motion.div>
@@ -130,7 +123,7 @@ export function EtherealInvitationPage({
                 <div className="grid sm:grid-cols-2 gap-6 sm:gap-8">
                   <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="text-center">
                     <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full overflow-hidden border-4 border-primary/20 mx-auto mb-3 sm:mb-4 shadow-lg">
-                      <ImageUploader src={groomImage} alt="Groom" onImageChange={setGroomImage} fallbackSvg={GROOM_FALLBACK} className="w-full h-full object-cover" containerClassName="w-full h-full" />
+                      <EditableImage field="decorative.groomImage" alt="Groom" size="xl" shape="circle" className="w-full h-full" />
                     </div>
                     <h3 className="font-script text-2xl sm:text-3xl text-primary mb-1"><Editable as="span" field="groom.nickname" /></h3>
                     <p className="font-medium text-sm sm:text-base mb-1"><Editable as="span" field="groom.fullName" /></p>
@@ -138,7 +131,7 @@ export function EtherealInvitationPage({
                   </motion.div>
                   <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="text-center">
                     <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full overflow-hidden border-4 border-rose/30 mx-auto mb-3 sm:mb-4 shadow-lg">
-                      <ImageUploader src={brideImage} alt="Bride" onImageChange={setBrideImage} fallbackSvg={BRIDE_FALLBACK} className="w-full h-full object-cover" containerClassName="w-full h-full" />
+                      <EditableImage field="decorative.brideImage" alt="Bride" size="xl" shape="circle" className="w-full h-full" />
                     </div>
                     <h3 className="font-script text-2xl sm:text-3xl text-primary mb-1"><Editable as="span" field="bride.nickname" /></h3>
                     <p className="font-medium text-sm sm:text-base mb-1"><Editable as="span" field="bride.fullName" /></p>

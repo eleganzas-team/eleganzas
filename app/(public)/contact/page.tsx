@@ -30,7 +30,7 @@ const contactInfo = [
     title: "Telepon",
     info: "+62 812 3456 7890",
     info2: "+62 812 3456 7891",
-    action: "tel:+6281234567890",
+    action: "tel:+6283851787713",
     color: "blue"
   },
   {
@@ -380,7 +380,7 @@ export default function ContactPage() {
               Hubungi kami langsung melalui WhatsApp untuk respons lebih cepat
             </p>
             <Button asChild size="lg" className="bg-green-600 hover:bg-green-700">
-              <Link href="https://wa.me/6281234567890">
+              <Link href="https://wa.me/6283851787713">
                 <MessageCircle className="mr-2 h-5 w-5" />
                 Chat WhatsApp
               </Link>

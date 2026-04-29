@@ -128,7 +128,7 @@ export function DashboardContent() {
           <p className="mt-1 text-dash-subtext">Pantau performa undangan digital Anda</p>
         </div>
         <Button variant="default" asChild>
-          <Link href="/marketplace">
+          <Link href="/templates">
             <Sparkles className="mr-2 h-4 w-4" />
             Buat Undangan Baru
           </Link>
@@ -227,7 +227,7 @@ export function DashboardContent() {
               <Package className="mx-auto h-12 w-12 opacity-50" />
               <p className="mt-2">Belum ada pesanan</p>
               <Button variant="link" asChild>
-                <Link href="/marketplace">Jelajahi Template</Link>
+                <Link href="/templates">Jelajahi Template</Link>
               </Button>
             </div>
           ) : (

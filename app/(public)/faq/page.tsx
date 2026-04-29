@@ -292,7 +292,7 @@ export default function FAQPage() {
                 </Link>
               </Button>
               <Button asChild size="sm" className="bg-green-600 hover:bg-green-700">
-                <Link href="https://wa.me/6281234567890">
+                <Link href="https://wa.me/6283851787713">
                   <MessageCircle className="mr-2 h-4 w-4" />
                   WhatsApp
                 </Link>

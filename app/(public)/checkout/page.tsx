@@ -61,7 +61,7 @@ const bankAccounts = [
 ];
 
 // WhatsApp configuration
-const WHATSAPP_NUMBER = "6281234567890"; // Ganti dengan nomor WhatsApp admin
+const WHATSAPP_NUMBER = "6283851787713"; // Ganti dengan nomor WhatsApp admin
 
 export default function CheckoutPage() {
   const router = useRouter();
@@ -440,7 +440,7 @@ export default function CheckoutPage() {
               </Button>
 
               <Button variant="ghost" asChild>
-                <Link href="/marketplace">Lanjut Belanja</Link>
+                <Link href="/templates">Lanjut Belanja</Link>
               </Button>
             </div>
 
@@ -467,7 +467,7 @@ export default function CheckoutPage() {
       className="container mx-auto px-4 py-8"
     >
       <Link
-        href="/marketplace"
+        href="/templates"
         className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground"
       >
         <ArrowLeft className="h-4 w-4" />

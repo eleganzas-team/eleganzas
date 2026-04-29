@@ -222,7 +222,7 @@ export function TemplatesTable({ templates, onRefresh }: TemplatesTableProps) {
                         </Link>
                       </DropdownMenuItem>
                       <DropdownMenuItem asChild>
-                        <Link href={`/marketplace/${template.id}`} target="_blank">
+                        <Link href={`/templates/${template.id}`} target="_blank">
                           <Eye className="mr-2 h-4 w-4" />
                           View
                         </Link>

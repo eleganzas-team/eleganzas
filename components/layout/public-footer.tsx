@@ -41,7 +41,7 @@ export function PublicFooter() {
           <div>
             <h3 className="mb-4 font-semibold text-foreground">Tautan Cepat</h3>
             <ul className="space-y-2 text-sm">
-              <li><Link href="/marketplace" className="text-muted-foreground hover:text-primary">Marketplace</Link></li>
+              <li><Link href="/templates" className="text-muted-foreground hover:text-primary">templates</Link></li>
               <li><Link href="/pricing" className="text-muted-foreground hover:text-primary">Harga</Link></li>
               <li><Link href="/about" className="text-muted-foreground hover:text-primary">Tentang Kami</Link></li>
               <li><Link href="/contact" className="text-muted-foreground hover:text-primary">Kontak</Link></li>

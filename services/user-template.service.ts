@@ -202,4 +202,23 @@ export const invitationService = {
     
     return !data;
   },
+
+  // Upload image to Supabase Storage
+  async uploadImage(userTemplateId: string, field: string, file: File): Promise<string> {
+    const supabase = createClient();
+    const ext = file.name.split(".").pop() ?? "jpg";
+    const path = `uploads/${userTemplateId}/${field.replace(/\./g, "-")}-${Date.now()}.${ext}`;
+
+    const { error: uploadError } = await supabase.storage
+      .from("templates")
+      .upload(path, file, {
+        cacheControl: "3600",
+        upsert: true,
+      });
+
+    if (uploadError) throw uploadError;
+
+    const { data } = supabase.storage.from("templates").getPublicUrl(path);
+    return data.publicUrl;
+  },
 };

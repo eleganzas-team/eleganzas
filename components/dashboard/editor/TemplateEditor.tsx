@@ -234,6 +234,7 @@ export function TemplateEditor({ userTemplate, template }: TemplateEditorProps) 
           mode="editor"
           userConfig={latestUserData}
           onUserDataChange={handleUserDataChange}
+          userTemplateId={userTemplate.id}
         />
       </div>
     </div>

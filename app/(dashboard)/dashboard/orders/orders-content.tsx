@@ -219,7 +219,7 @@ export function OrdersContent() {
               </p>
               {orders.length === 0 && (
                 <Button variant="default" className="mt-6" asChild>
-                  <Link href="/marketplace">Jelajahi Template</Link>
+                  <Link href="/templates">Jelajahi Template</Link>
                 </Button>
               )}
             </div>

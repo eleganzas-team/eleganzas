@@ -31,7 +31,7 @@ export function Sidebar() {
               eleganzas
             </h1>
             <p className="text-[10px] uppercase tracking-wider text-sidebar-brand-subtext">
-              Marketplace
+              templates
             </p>
           </div>
         </Link>

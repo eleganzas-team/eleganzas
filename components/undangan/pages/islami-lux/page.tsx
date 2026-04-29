@@ -63,10 +63,12 @@ export function IslamicLuxuryInvitationPage({
   mode = "editor",
   userConfig,
   onUserDataChange,
+  userTemplateId,
 }: { 
   mode?: EditorMode;
   userConfig?: Record<string, unknown>;
   onUserDataChange?: (userData: Record<string, unknown>) => void;
+  userTemplateId?: string;
 }) {
   return (
     <EditorProvider
@@ -74,6 +76,7 @@ export function IslamicLuxuryInvitationPage({
       initialUserData={userConfig || mockUserDataIslamiLux}
       mapping={islamiLuxMapping}
       mode={mode}
+      userTemplateId={userTemplateId}
       onChange={onUserDataChange}
     >
 

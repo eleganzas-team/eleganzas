@@ -1,7 +1,8 @@
 "use client"
-import { createContext, useContext, useMemo, useState, type ReactNode } from "react";
+import { createContext, useContext, useMemo, useState, useRef, useEffect, type ReactNode } from "react";
 
 import { setDeepValue, resolveValue } from "@/components/undangan/lib/engine/resolver";
+import { buildFieldSchema, type FieldSchema, type FieldType } from "@/components/undangan/lib/engine/fieldTypes";
 import type { EditorMode } from "@/components/undangan/lib/engine/generator";
 
 type ThemeMapping = Record<string, readonly string[]>;
@@ -12,8 +13,11 @@ type EditorContextValue = {
   isEditable: boolean;
   activeField: string | null;
   userData: EditableData;
+  userTemplateId: string | null;
   getEditablePath: (field: string) => string | null;
   getValue: (field: string) => string;
+  getFieldType: (field: string) => FieldType;
+  getFieldLabel: (field: string) => string;
   setActiveField: (field: string | null) => void;
   setValue: (field: string, value: string) => void;
 };
@@ -30,6 +34,8 @@ export function EditorProvider({
   defaultData,
   initialUserData,
   mapping,
+  fieldSchema: customFieldSchema,
+  userTemplateId,
   mode = "editor",
   onChange,
 }: {
@@ -37,6 +43,8 @@ export function EditorProvider({
   defaultData: EditableData;
   initialUserData: EditableData;
   mapping: ThemeMapping;
+  fieldSchema?: Record<string, FieldSchema>;
+  userTemplateId?: string;
   mode?: EditorMode;
   onChange?: (userData: EditableData) => void;
 }) {
@@ -44,6 +52,22 @@ export function EditorProvider({
   const [activeField, setActiveField] = useState<string | null>(null);
 
   const isEditable = mode === "editor";
+
+  const fieldSchema = useMemo(
+    () => buildFieldSchema(mapping, defaultData, customFieldSchema),
+    [mapping, defaultData, customFieldSchema],
+  );
+
+  // Defer onChange to avoid synchronous parent update during render
+  const onChangeRef = useRef<(data: EditableData) => void>(() => {});
+  onChangeRef.current = onChange || (() => {});
+
+  useEffect(() => {
+    // Call onChange after render commits, only if data changed from initial
+    if (JSON.stringify(userData) !== JSON.stringify(initialUserData)) {
+      onChangeRef.current(userData);
+    }
+  }, [userData, initialUserData]);
 
   const value = useMemo<EditorContextValue>(() => {
     const sources = { user: userData, default: defaultData };
@@ -53,8 +77,11 @@ export function EditorProvider({
       isEditable,
       activeField: isEditable ? activeField : null,
       userData,
+      userTemplateId: userTemplateId ?? null,
       getEditablePath: (field) => getUserEditablePath(mapping[field]),
       getValue: (field) => String(resolveValue([...(mapping[field] ?? [])], sources) ?? ""),
+      getFieldType: (field) => fieldSchema[field]?.type ?? "text",
+      getFieldLabel: (field) => fieldSchema[field]?.label ?? field,
       setActiveField: isEditable
         ? setActiveField
         : () => {}, // no-op in non-editor modes
@@ -64,13 +91,12 @@ export function EditorProvider({
             if (!editablePath) return;
             setUserData((current) => {
               const newData = setDeepValue(current, editablePath, fieldValue);
-              onChange?.(newData);
               return newData;
             });
           }
         : () => {}, // no-op in non-editor modes
     };
-  }, [activeField, defaultData, mapping, userData, mode, isEditable, onChange]);
+  }, [activeField, defaultData, mapping, userData, mode, isEditable, fieldSchema, userTemplateId]);
 
   return <EditorContext.Provider value={value}>{children}</EditorContext.Provider>;
 }
@@ -80,3 +106,4 @@ export function useEditor() {
   if (!context) throw new Error("useEditor must be used inside EditorProvider");
   return context;
 }
+

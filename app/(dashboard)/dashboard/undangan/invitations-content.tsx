@@ -56,7 +56,7 @@ export function UserTemplateContent() {
 
     try {
       const { data, error } = await supabase
-        .from("user_UserTemplate")
+        .from("user_template")
         .select(`
           *,
           templates:template_id (*)
@@ -105,7 +105,7 @@ export function UserTemplateContent() {
     
     try {
       const { error } = await supabase
-        .from("user_UserTemplate")
+        .from("user_template")
         .delete()
         .eq("id", id);
       
@@ -124,7 +124,7 @@ export function UserTemplateContent() {
     
     try {
       const { error } = await supabase
-        .from("user_UserTemplate")
+        .from("user_template")
         .update({ is_published: !currentStatus })
         .eq("id", id);
       
@@ -162,7 +162,7 @@ export function UserTemplateContent() {
           <p className="mt-1 text-page-subtext">Kelola semua undangan digital Anda</p>
         </div>
         <Button variant="default" asChild>
-          <Link href="/marketplace">
+          <Link href="/templates">
             <Plus className="mr-2 h-4 w-4" />
             Buat Undangan Baru
           </Link>
@@ -203,7 +203,7 @@ export function UserTemplateContent() {
               Beli template dan mulai buat undangan Anda
             </p>
             <Button variant="default" className="mt-6" asChild>
-              <Link href="/marketplace">Jelajahi Template</Link>
+              <Link href="/templates">Jelajahi Template</Link>
             </Button>
           </CardContent>
         </Card>
