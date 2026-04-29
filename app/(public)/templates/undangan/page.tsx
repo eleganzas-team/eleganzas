@@ -523,7 +523,7 @@ export default function UndanganPage() {
                         <Link href={`/templates/undangan/${template.id}`}>Detail</Link>
                       </Button>
                       <Button asChild size="sm" className="h-8 flex-1 bg-rose-500 text-xs hover:bg-rose-600 sm:h-9">
-                        <Link href={template.demo_url || "#"}>Demo</Link>
+                        <Link href={process.env.NEXT_PUBLIC_BASE_URL? process.env.NEXT_PUBLIC_BASE_URL+template.demo_url : "#"} target="_blank">Demo</Link>
                       </Button>
                     </CardFooter>
                   </Card>

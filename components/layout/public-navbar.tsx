@@ -91,7 +91,7 @@ export function PublicNavbar() {
   const [isMobileTemplatesOpen, setIsMobileTemplatesOpen] = useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const { totalItems, isCartOpen, openCart, closeCart } = useCart();
-  const { user } = useAuth();
+  const { user, signOut } = useAuth();
   const dropdownRef = useRef<HTMLDivElement>(null);
   const userMenuRef = useRef<HTMLDivElement>(null);
   const timeoutRef = useRef<NodeJS.Timeout>(null);
@@ -155,7 +155,10 @@ export function PublicNavbar() {
     };
     return colors[color as keyof typeof colors] || colors.blue;
   };
-
+const handleLogout = async () => {
+  // console.log("KELUAR");
+    await signOut();
+  };
   return (
     <>
       <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -389,6 +392,7 @@ export function PublicNavbar() {
                         <div className="border-t border-border mt-1 pt-1">
                           <button
                             onClick={() => {
+                              handleLogout();
                               setIsUserMenuOpen(false);
                               // Add logout logic here
                             }}
@@ -589,6 +593,7 @@ export function PublicNavbar() {
                       <button
                         onClick={() => {
                           // Add logout logic
+                          handleLogout();
                           setIsMobileMenuOpen(false);
                         }}
                         className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-rose-600 transition-colors hover:bg-rose-50 dark:hover:bg-rose-950/20"
