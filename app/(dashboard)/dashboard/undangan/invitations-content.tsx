@@ -93,7 +93,7 @@ export function UserTemplateContent() {
   };
 
   const handleCopyLink = (subdomain: string) => {
-    const link = `https://${subdomain}.eleganzas.id`;
+    const link = `${process.env.NEXT_PUBLIC_BASE_URL}undangan/p/${subdomain}`;
     navigator.clipboard.writeText(link);
     toast.success("Link disalin!");
   };
@@ -254,7 +254,7 @@ export function UserTemplateContent() {
                 
                 <div className="flex flex-wrap gap-2">
                   <Button size="sm" variant="outline" asChild>
-                    <Link href={`/dashboard/editor/${invitation.id}`}>
+                    <Link href={`/undangan/editor/${invitation.id}`} target="_blank">
                       <Edit className="mr-2 h-4 w-4" />
                       Edit
                     </Link>
@@ -263,7 +263,7 @@ export function UserTemplateContent() {
                   {invitation.is_published ? (
                     <>
                       <Button size="sm" variant="outline" asChild>
-                        <a href={`https://${invitation.subdomain}.eleganzas.id`} target="_blank" rel="noopener noreferrer">
+                        <a href={`${process.env.NEXT_PUBLIC_BASE_URL}undangan/p/${invitation.subdomain}`} target="_blank" rel="noopener noreferrer">
                           <ExternalLink className="mr-2 h-4 w-4" />
                           Lihat
                         </a>
@@ -277,7 +277,7 @@ export function UserTemplateContent() {
                     </>
                   ) : (
                     <Button size="sm" variant="outline" asChild>
-                      <Link href={`/dashboard/editor/${invitation.id}?preview=true`}>
+                      <Link href={`/undangan/editor/${invitation.id}?preview=true`}>
                         <Eye className="mr-2 h-4 w-4" />
                         Preview
                       </Link>
